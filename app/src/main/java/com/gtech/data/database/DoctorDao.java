@@ -1,4 +1,4 @@
-package com.gtech.data.source;
+package com.gtech.data.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.gtech.domain.models.Doctor;
+import com.gtech.data.model.Doctor;
 
 import java.util.List;
 

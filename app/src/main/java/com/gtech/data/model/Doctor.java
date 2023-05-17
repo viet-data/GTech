@@ -1,5 +1,6 @@
-package com.gtech.domain.models;
+package com.gtech.data.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,9 +11,15 @@ public class Doctor {
     @PrimaryKey(autoGenerate = true)
     public int doctorId;
 
+    @ColumnInfo(name = "doc_name")
     public String doctorName;
+
+    @ColumnInfo(name = "phone_no")
     public String phoneNumber;
+
+    @ColumnInfo(name = "email")
     public String emailAddress;
+    @ColumnInfo(name = "description")
     public String doctorDescription;
 
     public Doctor(String doctorName, String phoneNumber, String emailAddress, String doctorDescription) {

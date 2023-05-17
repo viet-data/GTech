@@ -1,13 +1,12 @@
 package com.gtech.data.repository;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.gtech.data.source.DoctorDao;
-import com.gtech.data.source.DoctorDatabase;
-import com.gtech.domain.models.Doctor;
+import com.gtech.data.database.DoctorDao;
+import com.gtech.data.database.DoctorDatabase;
+import com.gtech.data.model.Doctor;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
