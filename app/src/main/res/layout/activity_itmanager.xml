@@ -4,14 +4,14 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="CustomerViewModel"
-            type="com.example.myapplication.CustomerViewModel"/>
+            name="ItmanagerViewModel"
+            type="com.example.myapplication.viewmodel.ItmanagerViewModel"/>
     </data>
     <Button
-        android:id="@+id/btn_logout"
+        android:id="@+id/btn_itmanager_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOGOUT"
+        android:text="LOGOUT FOR IT MANAGER"
         tools:layout_editor_absoluteX="154dp"
         tools:layout_editor_absoluteY="341dp"/>
 </layout>

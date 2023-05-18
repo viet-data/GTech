@@ -1,14 +1,19 @@
-package com.example.myapplication;
+package com.example.myapplication.viewmodel;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.ObservableField;
 
-public class LoginViewModel extends BaseObservable {
+import com.example.myapplication.BR;
+import com.example.myapplication.instance.User;
+
+public class RegisterViewModel extends BaseObservable {
     private String email;
     private String password;
-    public ObservableField<String> messageLogin = new ObservableField<>();
+
+    public ObservableField<String> messageRegister = new ObservableField<>();
     public ObservableField<Boolean> isShowMessage = new ObservableField<>();
     public ObservableField<Boolean> isSuccess = new ObservableField<>();
+
     @Bindable
     public String getEmail() {
         return email;
@@ -25,14 +30,14 @@ public class LoginViewModel extends BaseObservable {
         this.password = password;
         notifyPropertyChanged(BR.password);
     }
-    public ObservableField<Boolean> isValidLogin() {
-        Customer customer = new Customer(getEmail(), getPassword());
+    public ObservableField<Boolean> isValidRegister() {
+        User user = new User(getEmail(), getPassword());
         isShowMessage.set(true);
-        if (customer.isValidEmail() && customer.isValidPassword()) {
-            messageLogin.set("Login success");
+        if (user.isValidEmail() && user.isValidPassword()) {
+            messageRegister.set("Register success");
             isSuccess.set(true);
         } else {
-            messageLogin.set("Email or Password invalid");
+            messageRegister.set("Email or Password invalid");
             isSuccess.set(false);
         }
         return isSuccess;
