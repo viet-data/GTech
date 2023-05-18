@@ -5,8 +5,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="LoginViewModel"
-            type="com.example.myapplication.viewmodel.LoginViewModel" />
+            name="RegisterViewModel"
+            type="com.example.myapplication.viewmodel.RegisterViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,10 +14,10 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center_horizontal"
-        tools:context=".activity.LoginActivity">
+        tools:context=".activity.RegisterActivity">
 
         <Spinner
-            android:id="@+id/login_spinner"
+            android:id="@+id/register_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
@@ -27,7 +27,7 @@
             android:paddingBottom="0dp" />
 
         <EditText
-            android:id="@+id/edt_email"
+            android:id="@+id/edt_email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -35,53 +35,53 @@
             android:paddingStart="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:text="@={LoginViewModel.Email}" />
+            android:text="@={RegisterViewModel.Email}" />
 
         <EditText
-            android:id="@+id/edt_password"
+            android:id="@+id/edt_password_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:text="@={LoginViewModel.Password}"
+            android:text="@={RegisterViewModel.Password}"
             android:hint="Password"
             android:paddingStart="20dp"
             android:layout_marginTop="15dp"
             android:paddingBottom="20dp"/>
 
         <TextView
-            android:id="@+id/tv_message"
+            android:id="@+id/tv_message_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@={LoginViewModel.messageLogin}"
+            android:text="@={RegisterViewModel.messageRegister}"
             android:textSize="18sp"
             android:layout_marginTop="10dp"/>
 
         <Button
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_register_in_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="LOGIN"
+            android:text="REGISTER"
             android:textSize="20sp"
             android:textStyle="bold"
             android:backgroundTint="@android:color/holo_blue_dark"
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/question_login"
+            android:id="@+id/question_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="Don't have any account? "
+            android:text="Already have any account? "
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:layout_toStartOf="@+id/btn_register">
+            android:layout_toStartOf="@+id/btn_login_in_register">
         </TextView>
         <TextView
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_login_in_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign up"
+            android:text="Sign in"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:textColor="@android:color/holo_blue_dark"

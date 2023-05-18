@@ -1,12 +1,12 @@
-package com.example.myapplication;
+package com.example.myapplication.instance;
 
 import android.text.TextUtils;
 import android.util.Patterns;
 
-public class Customer {
+public class User {
     private String email;
     private String password;
-    public Customer(String email, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
