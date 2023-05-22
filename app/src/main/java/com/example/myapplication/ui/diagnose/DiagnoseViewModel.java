@@ -10,7 +10,7 @@ public class DiagnoseViewModel extends ViewModel {
 
     public DiagnoseViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is diagnose fragment");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {

@@ -18,14 +18,14 @@ public class DiagnoseFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DiagnoseViewModel dashboardViewModel =
+        DiagnoseViewModel diagnoseViewModel =
                 new ViewModelProvider(this).get(DiagnoseViewModel.class);
 
         binding = FragmentDiagnoseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDiagnose;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        diagnoseViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
