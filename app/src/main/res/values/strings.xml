@@ -2,10 +2,7 @@
     <string name="app_name">My Application</string>
     <string name="title_activity_customer">CustomerActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -43,4 +40,12 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_diagnose">Diagnose</string>
+    <string name="title_info">Info</string>
+
+    <string name="terms_of_service">By signing up, you confirm that you are at least 16 years old and have read and agree to Symptom Checker\'s Terms of Service and Privacy Policy.</string>
+    <string name="minimum_password_length">The password must consist of at least 8 characters.</string>
+
 </resources>

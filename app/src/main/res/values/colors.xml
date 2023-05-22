@@ -2,6 +2,45 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="success">#4CAF50</color>
-    <color name="fail">#F44336</color>
+
+    <color name="blue_10">#FF000F5E</color>
+    <color name="blue_20">#FF001E92</color>
+    <color name="blue_30">#FF002ECC</color>
+    <color name="blue_40">#FF1546F6</color>
+    <color name="blue_80">#FFB8C3FF</color>
+    <color name="blue_90">#FFDDE1FF</color>
+
+    <color name="dark_blue_10">#FF00036B</color>
+    <color name="dark_blue_20">#FF000BA6</color>
+    <color name="dark_blue_30">#FF1026D3</color>
+    <color name="dark_blue_40">#FF3648EA</color>
+    <color name="dark_blue_80">#FFBBC2FF</color>
+    <color name="dark_blue_90">#FFDEE0FF</color>
+
+    <color name="yellow_10">#FF261900</color>
+    <color name="yellow_20">#FF402D00</color>
+    <color name="yellow_30">#FF5C4200</color>
+    <color name="yellow_40">#FF7A5900</color>
+    <color name="yellow_80">#FFFABD1B</color>
+    <color name="yellow_90">#FFFFDE9C</color>
+
+    <color name="red_10">#FF410001</color>
+    <color name="red_20">#FF680003</color>
+    <color name="red_30">#FF930006</color>
+    <color name="red_40">#FFBA1B1B</color>
+    <color name="red_80">#FFFFB4A9</color>
+    <color name="red_90">#FFFFDAD4</color>
+
+    <color name="gray_10">#FF191C1D</color>
+    <color name="gray_20">#FF2D3132</color>
+    <color name="gray_80">#FFC4C7C7</color>
+    <color name="gray_90">#FFE0E3E3</color>
+    <color name="gray_95">#FFEFF1F1</color>
+    <color name="gray_99">#FFFBFDFD</color>
+
+    <color name="blue_gray_30">#FF45464F</color>
+    <color name="blue_gray_50">#FF767680</color>
+    <color name="blue_gray_60">#FF90909A</color>
+    <color name="blue_gray_80">#FFC6C5D0</color>
+    <color name="blue_gray_90">#FFE2E1EC</color>
 </resources>
