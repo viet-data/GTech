@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.info;
+package com.example.myapplication.ui.library;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.databinding.FragmentInfoBinding;
+import com.example.myapplication.databinding.FragmentLibraryBinding;
 
-public class InfoFragment extends Fragment {
+public class LibraryFragment extends Fragment {
 
-    private FragmentInfoBinding binding;
+    private FragmentLibraryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        InfoViewModel infoViewModel =
-                new ViewModelProvider(this).get(InfoViewModel.class);
+        LibraryViewModel libraryViewModel =
+                new ViewModelProvider(this).get(LibraryViewModel.class);
 
-        binding = FragmentInfoBinding.inflate(inflater, container, false);
+        binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textInfo;
-        infoViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textLibrary;
+        libraryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

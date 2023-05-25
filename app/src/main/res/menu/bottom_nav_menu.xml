@@ -12,8 +12,8 @@
         android:title="@string/title_diagnose" />
 
     <item
-        android:id="@+id/navigation_info"
-        android:icon="@drawable/baseline_info_24"
-        android:title="@string/title_info" />
+        android:id="@+id/navigation_library"
+        android:icon="@drawable/baseline_library_books_24"
+        android:title="@string/title_library" />
 
 </menu>
