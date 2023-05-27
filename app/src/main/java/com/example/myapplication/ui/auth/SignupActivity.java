@@ -19,11 +19,15 @@ import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     ActivitySignupBinding binding;
@@ -50,11 +54,12 @@ public class SignupActivity extends AppCompatActivity {
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog);
         AlertDialog dialog = builder.create();
-
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         binding.btnSignup.setOnClickListener((view) -> {
             String strEmail = edtEmail.getText().toString().trim();
             String strPassword = edtPassword.getText().toString().trim();
             String strName = edtName.getText().toString().trim();
+            String strDob = edtDob.getText().toString();
             if (Patterns.EMAIL_ADDRESS.matcher(strEmail).matches() && strPassword.length() >= 8) {
                 dialog.show();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -62,12 +67,14 @@ public class SignupActivity extends AppCompatActivity {
                         .addOnCompleteListener((task) -> {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
-
                                 user.sendEmailVerification();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(strName)
-                                        .build();
-                                user.updateProfile(profileUpdates);
+
+                                DocumentReference df = firestore.collection("Users").document(user.getUid());
+                                Map<String, Object> userInfo = new HashMap<>();
+                                userInfo.put("full_name", strName);
+                                userInfo.put("date_of_birth", strDob);
+                                userInfo.put("is_admin", false);
+                                df.set(userInfo);
 
                                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                                 startActivity(intent);

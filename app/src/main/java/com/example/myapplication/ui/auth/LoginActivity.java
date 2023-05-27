@@ -14,7 +14,13 @@ import androidx.databinding.DataBindingUtil;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityLoginBinding;
 import com.example.myapplication.ui.MainActivity;
+import com.example.myapplication.ui.admin.AdminActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -46,24 +52,24 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.signInWithEmailAndPassword(strEmail, strPassword)
-                        .addOnCompleteListener((task) -> {
-                            if (task.isSuccessful()) {
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
                                 if (auth.getCurrentUser().isEmailVerified()) {
+                                    getUserAccessLevel(authResult.getUser().getUid());
                                     dialog.dismiss();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
                                 } else {
                                     dialog.dismiss();
                                     Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
-                            } else {
-                                dialog.dismiss();
-                                Toast.makeText(LoginActivity.this,
-                                        "Incorrect credential. Please try again.", Toast.LENGTH_SHORT).show();
                             }
+                        })
+                        .addOnFailureListener((task) -> {
+                            dialog.dismiss();
+                            Toast.makeText(LoginActivity.this,
+                                    "Incorrect credential. Please try again.", Toast.LENGTH_SHORT).show();
                         });
             }
         });
@@ -71,6 +77,24 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnNavigateSignup.setOnClickListener((View v) -> {
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
+        });
+    }
+    private void getUserAccessLevel(String uid) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference df = firestore.collection("Users").document(uid);
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                boolean userIsAdmin = documentSnapshot.getBoolean("is_admin");
+                Intent intent;
+                if (userIsAdmin) {
+                    intent = new Intent(getApplicationContext(), AdminActivity.class);
+                } else {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                }
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }
