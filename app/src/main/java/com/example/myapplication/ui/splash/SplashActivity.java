@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.MainActivity;
 import com.example.myapplication.ui.auth.LoginActivity;
+import com.example.myapplication.ui.auth.VerifyActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,7 +34,11 @@ public class SplashActivity extends AppCompatActivity {
         Intent intent;
         if (user == null) {
             intent = new Intent(this, LoginActivity.class);
-        } else {
+        }
+        else if (!user.isEmailVerified()) {
+            intent = new Intent(this, VerifyActivity.class);
+        }
+        else {
             intent = new Intent(this, MainActivity.class);
         }
         startActivity(intent);

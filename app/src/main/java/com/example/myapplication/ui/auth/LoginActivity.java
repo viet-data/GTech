@@ -1,7 +1,9 @@
 package com.example.myapplication.ui.auth;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -29,32 +31,41 @@ public class LoginActivity extends AppCompatActivity {
         initializeListeners();
     }
     private void initializeListeners() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        builder.setView(R.layout.layout_loading_dialog);
+        AlertDialog dialog = builder.create();
         binding.btnLogin.setOnClickListener((View v) -> {
             strEmail = binding.edtEmail.getText().toString().trim();
             strPassword = binding.edtPassword.getText().toString().trim();
-            if (!Patterns.EMAIL_ADDRESS.matcher(strEmail).matches() || !(strPassword.length() >= 8)) {
-                Toast.makeText(LoginActivity.this,
-                        "Email or password is invalid",Toast.LENGTH_SHORT);
-                return;
+            if (strPassword.length() < 8 || !Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()) {
+                Toast.makeText(getApplicationContext(),
+                        "Email or password is invalid",Toast.LENGTH_LONG).show();
             }
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            auth.signInWithEmailAndPassword(strEmail, strPassword)
-                .addOnCompleteListener((task) -> {
-                    if (task.isSuccessful()) {
-                        if (auth.getCurrentUser().isEmailVerified()) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this,
-                                "Sign in failed. Please try again.", Toast.LENGTH_SHORT);
-                    }
-                });
+            else {
+                dialog.show();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.signInWithEmailAndPassword(strEmail, strPassword)
+                        .addOnCompleteListener((task) -> {
+                            if (task.isSuccessful()) {
+                                if (auth.getCurrentUser().isEmailVerified()) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            } else {
+                                dialog.dismiss();
+                                Toast.makeText(LoginActivity.this,
+                                        "Incorrect credential. Please try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         });
 
         binding.btnNavigateSignup.setOnClickListener((View v) -> {

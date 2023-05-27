@@ -25,8 +25,9 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
     private void initializeListeners() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         binding.btnVerified.setOnClickListener((v) -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            user.reload();
             if (user.isEmailVerified()) {
                 Intent intent = new Intent(VerifyActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -37,6 +38,8 @@ public class VerifyActivity extends AppCompatActivity {
             }
         });
         binding.btnResend.setOnClickListener((v) -> {
+            FirebaseAuth.getInstance().getCurrentUser().reload();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (!user.isEmailVerified()) {
                 user.sendEmailVerification();
                 Toast.makeText(this, "A new verification email was sent. Please check your inbox.", Toast.LENGTH_SHORT).show();

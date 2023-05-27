@@ -18,6 +18,7 @@ import com.example.myapplication.databinding.ActivitySignupBinding;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,31 +54,38 @@ public class SignupActivity extends AppCompatActivity {
         binding.btnSignup.setOnClickListener((view) -> {
             String strEmail = edtEmail.getText().toString().trim();
             String strPassword = edtPassword.getText().toString().trim();
+            String strName = edtName.getText().toString().trim();
             if (Patterns.EMAIL_ADDRESS.matcher(strEmail).matches() && strPassword.length() >= 8) {
                 dialog.show();
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 auth.createUserWithEmailAndPassword(strEmail, strPassword)
-                    .addOnCompleteListener((task) -> {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = auth.getCurrentUser();
-                            user.sendEmailVerification();
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
-                            Toast.makeText(getApplicationContext(),
-                                    "A verification email has been sent. Verify your email to sign in.",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseAuth.getInstance().signOut();
-                        } else {
-                            dialog.dismiss();
-                            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finishAffinity();
-                            Toast.makeText(getApplicationContext(), "Sign up failed. Please try agains.",
-                                    Toast.LENGTH_SHORT).show();
+                        .addOnCompleteListener((task) -> {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = auth.getCurrentUser();
 
-                        }
-                    });
+                                user.sendEmailVerification();
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(strName)
+                                        .build();
+                                user.updateProfile(profileUpdates);
+
+                                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+                                Toast.makeText(getApplicationContext(),
+                                        "A verification email has been sent. Verify your email to sign in.",
+                                        Toast.LENGTH_SHORT).show();
+                                FirebaseAuth.getInstance().signOut();
+                            } else {
+                                dialog.dismiss();
+                                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+                                Toast.makeText(getApplicationContext(), "Sign up failed. Please try agains.",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
             } else {
                 Toast.makeText(SignupActivity.this, "Invalid email or password.",
                         Toast.LENGTH_SHORT).show();
