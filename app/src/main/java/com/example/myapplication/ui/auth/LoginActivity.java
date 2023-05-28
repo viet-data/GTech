@@ -3,6 +3,7 @@ package com.example.myapplication.ui.auth;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -37,6 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         initializeListeners();
     }
     private void initializeListeners() {
+
+        binding.btnForgetPassword.setOnClickListener((View v) -> {
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            startActivity(intent);
+        });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog);
@@ -44,9 +51,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener((View v) -> {
             strEmail = binding.edtEmail.getText().toString().trim();
             strPassword = binding.edtPassword.getText().toString().trim();
-            if (strPassword.length() < 8 || !Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()) {
+            if (TextUtils.isEmpty(strPassword) || TextUtils.isEmpty(strEmail) ||
+                    strPassword.length() < 8 || !Patterns.EMAIL_ADDRESS.matcher(strEmail).matches()) {
                 Toast.makeText(getApplicationContext(),
-                        "Email or password is invalid",Toast.LENGTH_LONG).show();
+                        "Email or password is invalid",Toast.LENGTH_SHORT).show();
             }
             else {
                 dialog.show();
