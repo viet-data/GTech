@@ -8,10 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ui.MainActivity;
+import com.example.myapplication.ui.admin.AdminActivity;
 import com.example.myapplication.ui.auth.LoginActivity;
 import com.example.myapplication.ui.auth.VerifyActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -39,7 +44,24 @@ public class SplashActivity extends AppCompatActivity {
             intent = new Intent(this, VerifyActivity.class);
         }
         else {
-            intent = new Intent(this, MainActivity.class);
+            String uid = user.getUid();
+            FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+            DocumentReference df = fStore.collection("Users").document(uid);
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    boolean userIsAdmin = documentSnapshot.getBoolean("is_admin");
+                    Intent intent;
+                    if (userIsAdmin) {
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    } else {
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                    }
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            return;
         }
         startActivity(intent);
         finish();

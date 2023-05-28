@@ -50,11 +50,13 @@ public class SignupActivity extends AppCompatActivity {
 
 
         initializeListeners();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false); // if you want user to wait for some process to finish,
         builder.setView(R.layout.layout_loading_dialog);
         AlertDialog dialog = builder.create();
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         binding.btnSignup.setOnClickListener((view) -> {
             String strEmail = edtEmail.getText().toString().trim();
             String strPassword = edtPassword.getText().toString().trim();
@@ -69,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
                                 FirebaseUser user = auth.getCurrentUser();
                                 user.sendEmailVerification();
 
-                                DocumentReference df = firestore.collection("Users").document(user.getUid());
+                                DocumentReference df = fStore.collection("Users").document(user.getUid());
                                 Map<String, Object> userInfo = new HashMap<>();
                                 userInfo.put("full_name", strName);
                                 userInfo.put("date_of_birth", strDob);
@@ -163,6 +165,8 @@ public class SignupActivity extends AppCompatActivity {
             binding.btnSignup.setEnabled(enable);
         }
     };
+
+    // Formatter for date textedit
     TextWatcher dobWatcher = new TextWatcher() {
         private String current = "";
         private String dateFormat = "ddmmyyyy";
