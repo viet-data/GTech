@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void getUserAccessLevel(String uid) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference df = firestore.collection("Users").document(uid);
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        DocumentReference df = fStore.collection("Users").document(uid);
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
