@@ -3,5 +3,37 @@
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/blue_80</item>
+        <item name="colorOnPrimary">@color/blue_20</item>
+        <item name="colorPrimaryContainer">@color/blue_30</item>
+        <item name="colorOnPrimaryContainer">@color/blue_90</item>
+        <item name="colorPrimaryInverse">@color/blue_40</item>
+
+        <item name="colorSecondary">@color/dark_blue_80</item>
+        <item name="colorOnSecondary">@color/dark_blue_20</item>
+        <item name="colorSecondaryContainer">@color/dark_blue_30</item>
+        <item name="colorOnSecondaryContainer">@color/dark_blue_90</item>
+
+        <item name="colorTertiary">@color/yellow_80</item>
+        <item name="colorOnTertiary">@color/yellow_20</item>
+        <item name="colorTertiaryContainer">@color/yellow_30</item>
+        <item name="colorOnTertiaryContainer">@color/yellow_90</item>
+
+        <item name="colorError">@color/red_80</item>
+        <item name="colorOnError">@color/red_20</item>
+        <item name="colorErrorContainer">@color/red_30</item>
+        <item name="colorOnErrorContainer">@color/red_90</item>
+
+        <item name="background">@color/gray_10</item>
+        <item name="colorOnBackground">@color/gray_90</item>
+
+        <item name="colorSurface">@color/gray_10</item>
+        <item name="colorOnSurface">@color/gray_80</item>
+        <item name="colorSurfaceInverse">@color/gray_90</item>
+        <item name="colorOnSurfaceInverse">@color/gray_20</item>
+        <item name="colorSurfaceVariant">@color/blue_gray_30</item>
+        <item name="colorOnSurfaceVariant">@color/blue_gray_80</item>
+
+        <item name="colorOutline">@color/blue_gray_60</item>
     </style>
 </resources>
