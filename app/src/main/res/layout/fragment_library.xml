@@ -8,6 +8,7 @@
     tools:context=".ui.library.LibraryFragment">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
@@ -15,19 +16,24 @@
         android:textStyle="bold"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_search"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_search"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_search"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        style="@style/Widget.Material3.Button.IconButton"
-        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        app:icon="@drawable/baseline_search_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_library"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        app:startIconDrawable="@drawable/baseline_search_24"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Search"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
