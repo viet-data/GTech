@@ -23,9 +23,6 @@ public class DiagnoseFragment extends Fragment {
 
         binding = FragmentDiagnoseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textDiagnose;
-        diagnoseViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
