@@ -2,148 +2,149 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp">
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_title"
-            style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Create an account"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:padding="24dp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_desc"
-            style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Please create an account with an email and a secured password."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_desc">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_title"
+                style="@style/TextAppearance.Material3.TitleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Create an account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_email"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_desc"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Please create an account with an email and a secured password."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_desc">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:hint="Full Name"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_dob"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:hint="Date of Birth (dd-mm-yyyy)"
+                    android:inputType="date"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_requirement"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/minimum_password_length"
+                app:layout_constraintStart_toStartOf="@+id/layout_password"
+                app:layout_constraintTop_toBottomOf="@id/layout_password" />
+
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/check_policy"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/terms_of_service"
+                app:layout_constraintTop_toBottomOf="@+id/layout_dob"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_signup"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="70dp"
+                android:text="Sign up"
+                android:enabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/check_policy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_email">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_password"
-                android:layout_width="300dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_navigate_login"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:hint="Password"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:onClick="navigateLogin"
+                android:text="Already have an account? Log in"
+                app:layout_constraintTop_toBottomOf="@id/btn_signup"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_password">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_name"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:hint="Full Name"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_dob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_dob"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:hint="Date of Birth (dd-mm-yyyy)"
-                android:inputType="date"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_requirement"
-            style="@style/TextAppearance.AppCompat.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="@string/minimum_password_length"
-            app:layout_constraintStart_toStartOf="@+id/layout_password"
-            app:layout_constraintTop_toBottomOf="@id/layout_password" />
-
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/check_policy"
-            style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/terms_of_service"
-            app:layout_constraintTop_toBottomOf="@+id/layout_dob"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_signup"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:text="Sign up"
-            android:enabled="false"
-            app:layout_constraintBottom_toTopOf="@id/btn_navigate_login"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_navigate_login"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:onClick="navigateLogin"
-            android:text="Already have an account? Log in"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

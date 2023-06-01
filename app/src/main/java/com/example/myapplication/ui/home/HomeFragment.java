@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        binding.btnLogout.setOnClickListener((v) -> {
+        binding.btnSettings.setOnClickListener((v) -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
