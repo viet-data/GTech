@@ -25,5 +25,12 @@ public class AdminActivity extends AppCompatActivity {
             startActivity(intent);
             finishAffinity();
         });
+
+        binding.btnListdoctors.setOnClickListener((v) -> {
+            Intent intent = new Intent(AdminActivity.this, ListDoctorsActivity.class);
+            startActivity(intent);
+            //finishAffinity();
+        });
     }
+
 }
