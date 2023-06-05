@@ -39,17 +39,21 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DataViewHo
 
     @Override
     public void onBindViewHolder(@NonNull DoctorAdapter.DataViewHolder holder, int position) {
-        String name = doctors.get(position).getName();
-        holder.tvName.setText(String.valueOf(name));
+        Doctor doctor = doctors.get(position);
+        holder.tvName.setText(String.valueOf(doctor.getName()));
+        holder.tvAge.setText(String.valueOf(doctor.getAge()));
+        holder.tvCategory.setText(String.valueOf(doctor.getCategory()));
     }
 
     public static class DataViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName;
+        TextView tvName, tvAge, tvCategory;
 
         public DataViewHolder(@NonNull View itemView){
             super(itemView);
 
             tvName = itemView.findViewById(R.id.tv_name);
+            tvAge = itemView.findViewById(R.id.tv_age);
+            tvCategory = itemView.findViewById(R.id.tv_category);
         }
     }
 }
