@@ -4,13 +4,24 @@ public class Doctor {
     String name;
     String age;
     String category;
+    String number;
+
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
     public Doctor(){}
 
-    public Doctor(String name, String age, String category){
+    public Doctor(String name, String age, String category, String number){
 
         this.name = name;
         this.age = age;
         this.category = category;
+        this.number = number;
     }
 
     public String getAge() {
