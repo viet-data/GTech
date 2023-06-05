@@ -43,10 +43,11 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DataViewHo
         holder.tvName.setText(String.valueOf(doctor.getName()));
         holder.tvAge.setText(String.valueOf(doctor.getAge()));
         holder.tvCategory.setText(String.valueOf(doctor.getCategory()));
+        holder.tvNumber.setText(String.valueOf(doctor.getNumber()));
     }
 
     public static class DataViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvAge, tvCategory;
+        TextView tvName, tvAge, tvCategory, tvNumber;
 
         public DataViewHolder(@NonNull View itemView){
             super(itemView);
@@ -54,6 +55,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DataViewHo
             tvName = itemView.findViewById(R.id.tv_name);
             tvAge = itemView.findViewById(R.id.tv_age);
             tvCategory = itemView.findViewById(R.id.tv_category);
+            tvNumber = itemView.findViewById(R.id.tv_number);
         }
     }
 }
