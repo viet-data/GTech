@@ -2,10 +2,11 @@ package com.example.myapplication.model;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class Symptom extends Concept {
+public class Condition extends Concept{
 
-    public String name;
+    protected String name;
 
+    @Override
     public <T extends Concept> T withIdAndName(@NonNull String id, @NonNull String name) {
         this.conceptId = id;
         this.name = name;

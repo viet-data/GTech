@@ -14,26 +14,20 @@
         android:layout_marginLeft="40dp"
         android:text="Concept Library"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="40dp"
         />
-    <com.google.android.material.textfield.TextInputLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_concepts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/txt_library"
+        app:layout_constraintTop_toBottomOf="@id/txt_library"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        app:startIconDrawable="@drawable/baseline_search_24"
-        app:endIconMode="clear_text">
+        android:paddingHorizontal="10dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Search"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
