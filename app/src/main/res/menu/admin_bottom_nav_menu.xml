@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_manage_users"
+        android:icon="@drawable/baseline_person_24"
+        android:title="@string/manage_users" />
+
+    <item
+        android:id="@+id/navigation_library"
+        android:icon="@drawable/baseline_dataset_24"
+        android:title="@string/medical_database" />
+</menu>

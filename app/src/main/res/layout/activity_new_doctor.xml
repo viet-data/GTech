@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.admin.NewDoctorActivity">
+    tools:context=".ui.activity.admin.NewDoctorActivity">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -89,7 +89,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Add Doctor"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        tools:layout_editor_absoluteX="145dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
