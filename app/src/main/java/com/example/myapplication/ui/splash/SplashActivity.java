@@ -7,10 +7,11 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ui.MainActivity;
-import com.example.myapplication.ui.admin.AdminActivity;
-import com.example.myapplication.ui.auth.LoginActivity;
-import com.example.myapplication.ui.auth.VerifyActivity;
+import com.example.myapplication.ui.activity.doctor.DoctorActivity;
+import com.example.myapplication.ui.activity.patient.PatientActivity;
+import com.example.myapplication.ui.activity.admin.AdminActivity;
+import com.example.myapplication.ui.activity.auth.LoginActivity;
+import com.example.myapplication.ui.activity.auth.VerifyActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,12 +51,14 @@ public class SplashActivity extends AppCompatActivity {
             df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    boolean userIsAdmin = documentSnapshot.getBoolean("is_admin");
+                    String userLevel = documentSnapshot.getString("user_level");
                     Intent intent;
-                    if (userIsAdmin) {
-                        intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    if (userLevel.equals("PATIENT")) {
+                        intent = new Intent(getApplicationContext(), PatientActivity.class);
+                    } else if (userLevel.equals("DOCTOR")) {
+                        intent = new Intent(getApplicationContext(), DoctorActivity.class);
                     } else {
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent = new Intent(getApplicationContext(), AdminActivity.class);
                     }
                     startActivity(intent);
                     finish();
