@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patient_navigation"
+    app:startDestination="@+id/navigation_diagnose">
+
+<fragment
+    android:id="@+id/navigation_diagnose"
+    android:name="com.example.myapplication.ui.fragments.DiagnoseFragment"
+    android:label="@string/title_diagnose"
+    tools:layout="@layout/fragment_diagnose" />
+
+<fragment
+    android:id="@+id/navigation_library"
+    android:name="com.example.myapplication.ui.fragments.LibraryFragment"
+    android:label="@string/title_library"
+    tools:layout="@layout/fragment_library" />
+</navigation>

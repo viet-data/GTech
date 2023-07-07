@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.carousel.MaskableFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_2sdp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingVertical="@dimen/_8sdp">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/check_symptom"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/baseline_chevron_right_24" />
+
+        <TextView
+            android:id="@+id/txt_category"
+            style="@style/regularBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/check_symptom"
+            android:text="Symptom" />
+
+        <TextView
+            android:id="@+id/txt_symptom_desc"
+            style="@style/boldBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_category"
+            android:layout_toRightOf="@id/check_symptom"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="Fatigue" />
+
+    </RelativeLayout>
+</com.google.android.material.carousel.MaskableFrameLayout>
