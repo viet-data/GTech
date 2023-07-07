@@ -34,6 +34,8 @@ public class ListConditionMatchActivity extends AppCompatActivity {
         binding = ActivityListConditionMatchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Bundle bundle = getIntent().getExtras();
+        conditions = bundle.getParcelableArrayList("condition_list");
         toolbar = findViewById(R.id.back_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +49,7 @@ public class ListConditionMatchActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        conditions = new ArrayList<>();
+        //conditions = new ArrayList<>();
         conditionMatchAdapter = new ConditionMatchAdapter(ListConditionMatchActivity.this, conditions);
         recyclerView.setAdapter(conditionMatchAdapter);
     }

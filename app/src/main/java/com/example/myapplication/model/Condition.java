@@ -1,5 +1,9 @@
 package com.example.myapplication.model;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -10,82 +14,79 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Condition {
+public class Condition implements Parcelable {
     @Exclude
     protected String conditionId;
 
     private String name;
     private String description;
     private Specialization specializationOb;
-
+    private ArrayList<Symptom> symptomArrayList = new ArrayList<>();
     private DocumentReference specialization;
     private ArrayList<DocumentReference> symptoms;
-    private ArrayList<Symptom> symptomArrayList;
+
 
 
 
     public Condition() {}
-    public Condition(String name, String description, DocumentReference specialization,ArrayList<DocumentReference> symptoms) {
+    public Condition(String conditionId, String name, String description ){
+        this.conditionId = conditionId;
         this.name = name;
         this.description = description;
-        this.specialization = specialization;
-        this.symptoms = symptoms;
+
+    }
+    public Condition changeToObject(String id){
+        this.conditionId = id;
+        //System.out.println(this.specialization);
         this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 specializationOb = documentSnapshot.toObject(Specialization.class);
+
             }
         });
 
-
-        List<Specialization> a = new ArrayList<>();
-        this.specializationOb = specialization.get().getResult().toObject(Specialization.class);
-
-
-
-        for (DocumentReference dR : symptoms){
-            System.out.println(dR);
-            Symptom symptom = dR.get().getResult().toObject(Symptom.class);
-            symptomArrayList.add(symptom);
+        for (DocumentReference dR : this.symptoms){
+            //System.out.println(dR.getId());
+            dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    symptomArrayList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
+                }
+            });
         }
-    }
-    private void change(){
 
+
+        return (Condition) this;
     }
 
     public Specialization getSpecializationOb() {
-
-        //System.out.println(specializationOb.getClass());
-        return  specializationOb;
+        return  this.specializationOb;
     }
 
     public DocumentReference getSpecialization() {
         return specialization;
     }
 
+    public void setSpecializationOb(Specialization anSpecialization) {
+        this.specializationOb = anSpecialization;
+    }
 
-
-
-    public ArrayList<DocumentReference> getsymptoms(){
+    public ArrayList<DocumentReference> getSymptoms(){
         return symptoms;
     }
     public ArrayList<Symptom> getSymptomArrayList(){
         return symptomArrayList;
     }
 
+    public String getConditionId() {
+        return conditionId;
+    }
 
-
-
-
-
-
-
-
-
-    public Condition(String name, String description, Specialization specialization) {
+    public Condition(String name, String description, Specialization specializationOb) {
         this.name = name;
         this.description = description;
-        this.specializationOb = specialization;
+        this.specializationOb = specializationOb;
     }
 
 
@@ -110,4 +111,35 @@ public class Condition {
         return name;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
+        dest.writeString(conditionId);
+        dest.writeString(name);
+        dest.writeString(description);
+
+
+    }
+
+    public Condition(Parcel in) {
+        conditionId = in.readString();
+        name = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Condition> CREATOR = new Creator<Condition>() {
+        @Override
+        public Condition createFromParcel(Parcel source) {
+            return new Condition(source);
+        }
+
+        @Override
+        public Condition[] newArray(int size) {
+            return new Condition[size];
+        }
+    };
 }

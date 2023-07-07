@@ -25,8 +25,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public class DiagnosisActivity extends AppCompatActivity {
     ActivityDiagnosisBinding binding;
@@ -35,7 +40,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     RecyclerView recyclerViewSymptoms;
     FirebaseFirestore firestore;
     SymptomListAdapter adapter;
-    List<Condition> conditionList = new ArrayList<>();
+    ArrayList<Condition> conditionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,23 +75,58 @@ public class DiagnosisActivity extends AppCompatActivity {
                 // Matching
                 List<Symptom> selectedSymptomList = adapter.getSelectedSymptomList();
 
-                System.out.println("_______________________testne");
-                System.out.println(conditionList);
-                startActivity(new Intent(DiagnosisActivity.this, ListConditionMatchActivity.class));
+
+                ArrayList results = findCondition(selectedSymptomList, conditionList);
+                Intent intent = new Intent(DiagnosisActivity.this, ListConditionMatchActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("condition_list", results);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
     }
-    private int findCondition(List<Symptom> selectedSymptomList, List<Condition> conditionList){
+    private ArrayList<Condition> findCondition(List<Symptom> selectedSymptomList, List<Condition> conditionList){
+        List<Map.Entry<Integer, Condition>> dataDict = new ArrayList<>();
+        ArrayList<Condition> results = new ArrayList<>();
 
-        return 0;
+        for(Condition condition : conditionList){
+            dataDict.add(new AbstractMap.SimpleEntry<>(getMatchingSymptomCount(selectedSymptomList, condition), condition));
+        }
+        // Sort the list in decreasing order based on keys
+        Collections.sort(dataDict, new Comparator<Map.Entry<Integer, Condition>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Condition> entry1, Map.Entry<Integer, Condition> entry2) {
+                return entry2.getKey().compareTo(entry1.getKey());
+            }
+        });
+        int count = 3;
+        for (Map.Entry<Integer, Condition> entry : dataDict) {
+            if (count == 0){break;}
+            count = count - 1;
+            results.add(entry.getValue());
+        }
+        return results;
     }
     private int getMatchingSymptomCount(List<Symptom> selectedSymptomList, Condition condition){
         int count = 0;
-        for(Symptom symptom : selectedSymptomList){
+
+        ArrayList<String> pool = new ArrayList<>();
+        for(Symptom symptom : condition.getSymptomArrayList()){
+
+            pool.add(symptom.getSymptomId());
         }
-        return 0;
+
+        for(Symptom symptom : selectedSymptomList){
+            if(pool.contains(symptom.getSymptomId())){
+                count ++;
+            }
+        }
+        return count;
     }
+
+
+
     private void showConditions(){
         firestore.collection("Conditions").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -95,16 +135,9 @@ public class DiagnosisActivity extends AppCompatActivity {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class);
-                        System.out.println("specialization");
-                        System.out.println(condition.getSpecialization());
-                        System.out.println(condition.getSpecializationOb());
-                        //System.out.println(condition.getsymptoms());
-                        //System.out.println("symtom list");
-                        //System.out.println(condition);
-                        //System.out.println(condition.getSymptomArrayList());
+                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
                         conditionList.add(condition);
-                        //adapter.notifyDataSetChanged();
+
                     }
                 }
 
