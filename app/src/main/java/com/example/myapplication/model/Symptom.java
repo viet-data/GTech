@@ -13,6 +13,10 @@ public class Symptom {
     public Symptom(String description) {
         this.description = description;
     }
+    public Symptom withId(String id){
+        this.symptomId = id;
+        return  (Symptom) this;
+    }
     public Symptom withIdAndDesc(@NonNull String id, @NonNull String description) {
         this.symptomId = id;
         this.description = description;
@@ -21,5 +25,9 @@ public class Symptom {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getSymptomId() {
+        return symptomId;
     }
 }

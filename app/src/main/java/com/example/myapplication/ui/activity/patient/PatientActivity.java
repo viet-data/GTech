@@ -1,6 +1,9 @@
 package com.example.myapplication.ui.activity.patient;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -9,6 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityPatientBinding;
+import com.example.myapplication.ui.activity.admin.ListDoctorsActivity;
+import com.example.myapplication.ui.activity.admin.NewDoctorActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

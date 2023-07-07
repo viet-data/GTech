@@ -33,13 +33,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_10sdp"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton"
+        app:layout_constraintBottom_toTopOf="@+id/btn_diagnosis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_input_symptoms" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btn_diagnosis"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="@dimen/_270sdp"
         android:layout_height="@dimen/_40sdp"
