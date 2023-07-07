@@ -8,10 +8,6 @@ public class Specialization {
         this.name = name;
         this.description = description;
     }
-
-    public void changeToObject(){
-
-    }
     public String getName() {
         return name;
     }

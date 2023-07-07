@@ -1,7 +1,5 @@
 package com.example.myapplication.ui.activity.patient;
 
-import static com.example.myapplication.adapter.SymptomListAdapter.*;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,7 +27,6 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -112,14 +109,13 @@ public class DiagnosisActivity extends AppCompatActivity {
         int count = 0;
 
         ArrayList<String> pool = new ArrayList<>();
-        for(Symptom symptom : condition.getSymptomArrayList()){
-
+        for(Symptom symptom : condition.getSymptoms()){
             pool.add(symptom.getSymptomId());
         }
 
         for(Symptom symptom : selectedSymptomList){
             if(pool.contains(symptom.getSymptomId())){
-                count ++;
+                count++;
             }
         }
         return count;
@@ -144,9 +140,6 @@ public class DiagnosisActivity extends AppCompatActivity {
             }
 
         });
-
-
-
     }
     private void showData() {
         firestore.collection("Symptoms").addSnapshotListener(new EventListener<QuerySnapshot>() {

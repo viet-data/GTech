@@ -1,6 +1,5 @@
 package com.example.myapplication.model;
 
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,11 +7,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.PropertyName;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Condition implements Parcelable {
     @Exclude
@@ -20,16 +19,17 @@ public class Condition implements Parcelable {
 
     private String name;
     private String description;
-    private Specialization specializationOb;
-    private ArrayList<Symptom> symptomArrayList = new ArrayList<>();
-    private DocumentReference specialization;
-    private ArrayList<DocumentReference> symptoms;
-
-
-
+    @PropertyName("specialization")
+    private DocumentReference specializationDocRef;
+    @PropertyName("symptoms")
+    private ArrayList<DocumentReference> symptomsDocRef;
+    @Exclude
+    private Specialization specialization;
+    @Exclude
+    private ArrayList<Symptom> symptoms = new ArrayList<>();
 
     public Condition() {}
-    public Condition(String conditionId, String name, String description ){
+    public Condition(String conditionId, String name, String description){
         this.conditionId = conditionId;
         this.name = name;
         this.description = description;
@@ -38,45 +38,43 @@ public class Condition implements Parcelable {
     public Condition changeToObject(String id){
         this.conditionId = id;
         //System.out.println(this.specialization);
-        this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        this.specializationDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                specializationOb = documentSnapshot.toObject(Specialization.class);
-
+                specialization = documentSnapshot.toObject(Specialization.class);
             }
         });
 
-        for (DocumentReference dR : this.symptoms){
-            //System.out.println(dR.getId());
+        for (DocumentReference dR : this.symptomsDocRef){
             dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    symptomArrayList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
+                    symptoms.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
                 }
             });
         }
-
-
         return (Condition) this;
     }
-
-    public Specialization getSpecializationOb() {
-        return  this.specializationOb;
+    @Exclude
+    public Specialization getSpecialization() {
+        return  this.specialization;
     }
 
-    public DocumentReference getSpecialization() {
-        return specialization;
+    @PropertyName("specialization")
+    public DocumentReference getSpecializationDocRef() {
+        return specializationDocRef;
     }
-
-    public void setSpecializationOb(Specialization anSpecialization) {
-        this.specializationOb = anSpecialization;
+    @Exclude
+    public void setSpecialization(Specialization anSpecialization) {
+        this.specialization = anSpecialization;
     }
-
-    public ArrayList<DocumentReference> getSymptoms(){
+    @PropertyName("symptoms")
+    public ArrayList<DocumentReference> getSymptomsDocRef(){
+        return symptomsDocRef;
+    }
+    @Exclude
+    public ArrayList<Symptom> getSymptoms(){
         return symptoms;
-    }
-    public ArrayList<Symptom> getSymptomArrayList(){
-        return symptomArrayList;
     }
 
     public String getConditionId() {
@@ -86,7 +84,7 @@ public class Condition implements Parcelable {
     public Condition(String name, String description, Specialization specializationOb) {
         this.name = name;
         this.description = description;
-        this.specializationOb = specializationOb;
+        this.specialization = specializationOb;
     }
 
 
@@ -99,7 +97,7 @@ public class Condition implements Parcelable {
 
     public void addSymptom(Symptom symptom) {
 
-        this.symptomArrayList.add(symptom);
+        this.symptoms.add(symptom);
     }
     public Condition withIdAndName(@NonNull String id, @NonNull String name) {
         this.conditionId = id;
@@ -117,12 +115,10 @@ public class Condition implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(conditionId);
         dest.writeString(name);
         dest.writeString(description);
-
-
     }
 
     public Condition(Parcel in) {
