@@ -28,19 +28,6 @@ public class AdminActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_admin);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        binding.btnLogout.setOnClickListener((v) -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finishAffinity();
-        });
-
-        binding.btnListdoctors.setOnClickListener((v) -> {
-            Intent intent = new Intent(AdminActivity.this, ListDoctorsActivity.class);
-            startActivity(intent);
-            //finishAffinity();
-        });
     }
 
 }

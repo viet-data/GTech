@@ -25,8 +25,8 @@ public class ListConditionMatchActivity extends AppCompatActivity {
     ConditionMatchAdapter conditionMatchAdapter;
     RecyclerView recyclerView;
     Toolbar toolbar;
-
     ActivityListConditionMatchBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

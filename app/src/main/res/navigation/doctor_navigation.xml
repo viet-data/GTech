@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/doctor_navigation">
+
+    <fragment
+        android:id="@+id/navigation_doctor_profile"
+        android:name="com.example.myapplication.ui.fragments.DoctorProfileFragment"
+        android:label="Doctor Profile"
+        tools:layout="@layout/fragment_doctor_profile" />
+
+    <fragment
+        android:id="@+id/navigation_medical_database"
+        android:name="com.example.myapplication.ui.fragments.MedicalDatabaseFragment"
+        android:label="Medical Database"
+        tools:layout="@layout/fragment_medical_database" />
+</navigation>

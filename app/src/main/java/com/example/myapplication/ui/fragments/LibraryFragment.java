@@ -38,7 +38,7 @@ public class LibraryFragment extends Fragment {
         binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        recyclerViewConcepts = root.findViewById(R.id.recycler_view_conditions);
+        recyclerViewConcepts = binding.recyclerViewConditions;
         recyclerViewConcepts.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
         conditionList = new ArrayList<>();
