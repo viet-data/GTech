@@ -1,7 +1,10 @@
 package com.example.myapplication.model;
 
 public class User {
-    private String name;
+    protected String name;
+    public User() {
+
+    }
 
     public User(String name) {
         this.name = name;

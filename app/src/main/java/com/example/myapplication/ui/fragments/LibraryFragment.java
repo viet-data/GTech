@@ -56,8 +56,8 @@ public class LibraryFragment extends Fragment {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class)
-                                .withIdAndName(id, doc.getString("name"));
+                        Condition condition = doc.toObject(Condition.class);
+                        condition.setConditionId(id);
                         conditionList.add(condition);
                         adapter.notifyDataSetChanged();
                     }

@@ -36,7 +36,7 @@ public class ListConditionMatchActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         conditions = bundle.getParcelableArrayList("condition_list");
-        toolbar = findViewById(R.id.back_toolbar);
+        toolbar = binding.backToolbar.myToolbar;
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class ListConditionMatchActivity extends AppCompatActivity {
         });
 
 
-        recyclerView = findViewById(R.id.condition_match);
+        recyclerView = binding.conditionMatch;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
