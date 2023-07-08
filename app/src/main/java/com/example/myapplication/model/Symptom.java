@@ -6,8 +6,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class Symptom {
 
-    @Exclude
-    protected String symptomId;
+    private String symptomId;
     private String description;
     public Symptom() {}
     public Symptom(String description) {
@@ -29,5 +28,13 @@ public class Symptom {
 
     public String getSymptomId() {
         return symptomId;
+    }
+    @Exclude
+    public void setSymptomId(String symptomId) {
+        this.symptomId = symptomId;
+    }
+    @Exclude
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

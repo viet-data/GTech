@@ -21,11 +21,9 @@ public class Condition implements Parcelable {
     private String name;
     private String description;
     private Specialization specializationOb;
-    private ArrayList<Symptom> symptomArrayList = new ArrayList<>();
+    private List<Symptom> symptomList = new ArrayList<>();
     private DocumentReference specialization;
-    private ArrayList<DocumentReference> symptoms;
-
-
+    private List<DocumentReference> symptoms;
 
 
     public Condition() {}
@@ -51,12 +49,10 @@ public class Condition implements Parcelable {
             dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    symptomArrayList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
+                    symptomList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
                 }
             });
         }
-
-
         return (Condition) this;
     }
 
@@ -72,39 +68,53 @@ public class Condition implements Parcelable {
         this.specializationOb = anSpecialization;
     }
 
-    public ArrayList<DocumentReference> getSymptoms(){
+    public List<DocumentReference> getSymptoms(){
         return symptoms;
     }
-    public ArrayList<Symptom> getSymptomArrayList(){
-        return symptomArrayList;
+    public List<Symptom> getSymptomList(){
+        return symptomList;
     }
 
+    @Exclude
     public String getConditionId() {
         return conditionId;
     }
-
+    @Exclude
+    public void setConditionId(String conditionId) {
+        this.conditionId = conditionId;
+    }
     public Condition(String name, String description, Specialization specializationOb) {
         this.name = name;
         this.description = description;
         this.specializationOb = specializationOb;
     }
-
-
-
-    public Condition withId_NameAndSymptoms(@NonNull String id, @NonNull String name) {
-        this.conditionId = id;
-        this.name = name;
-        return (Condition) this;
-    }
-
     public void addSymptom(Symptom symptom) {
 
-        this.symptomArrayList.add(symptom);
+        this.symptomList.add(symptom);
     }
-    public Condition withIdAndName(@NonNull String id, @NonNull String name) {
-        this.conditionId = id;
+
+    public void setName(String name) {
         this.name = name;
-        return (Condition) this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSymptomList(List<Symptom> symptomList) {
+        this.symptomList = symptomList;
+    }
+
+    public void setSpecialization(DocumentReference specialization) {
+        this.specialization = specialization;
+    }
+
+    public void setSymptoms(List<DocumentReference> symptoms) {
+        this.symptoms = symptoms;
     }
 
     public String getName() {
