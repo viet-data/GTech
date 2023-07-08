@@ -5,35 +5,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.library.LibraryFragment">
+    tools:context=".ui.fragments.LibraryFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txt_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:text="Concept Library"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:text="Condition Library"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="@dimen/_20ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/_40sdp"
         />
-    <com.google.android.material.textfield.TextInputLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_conditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/txt_library"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        app:startIconDrawable="@drawable/baseline_search_24"
-        app:endIconMode="clear_text">
+        app:layout_constraintTop_toBottomOf="@id/txt_library"
+        android:layout_marginTop="@dimen/_20sdp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:hint="Search"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

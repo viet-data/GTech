@@ -72,7 +72,6 @@ public class DiagnosisActivity extends AppCompatActivity {
                 // Matching
                 List<Symptom> selectedSymptomList = adapter.getSelectedSymptomList();
 
-
                 ArrayList results = findCondition(selectedSymptomList, conditionList);
                 Intent intent = new Intent(DiagnosisActivity.this, ListConditionMatchActivity.class);
                 Bundle bundle = new Bundle();
@@ -81,7 +80,6 @@ public class DiagnosisActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
     private ArrayList<Condition> findCondition(List<Symptom> selectedSymptomList, List<Condition> conditionList){
         List<Map.Entry<Integer, Condition>> dataDict = new ArrayList<>();
@@ -97,7 +95,7 @@ public class DiagnosisActivity extends AppCompatActivity {
                 return entry2.getKey().compareTo(entry1.getKey());
             }
         });
-        int count = 3;
+        int count = 5;
         for (Map.Entry<Integer, Condition> entry : dataDict) {
             if (count == 0){break;}
             count = count - 1;
@@ -109,10 +107,9 @@ public class DiagnosisActivity extends AppCompatActivity {
         int count = 0;
 
         ArrayList<String> pool = new ArrayList<>();
-        for(Symptom symptom : condition.getSymptoms()){
+        for(Symptom symptom : condition.getSymptomList()){
             pool.add(symptom.getSymptomId());
         }
-
         for(Symptom symptom : selectedSymptomList){
             if(pool.contains(symptom.getSymptomId())){
                 count++;
@@ -131,15 +128,13 @@ public class DiagnosisActivity extends AppCompatActivity {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class);
+                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
                         conditionList.add(condition);
                     }
                 }
 
             }
-
         });
-
     }
     private void showData() {
         firestore.collection("Symptoms").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -149,8 +144,8 @@ public class DiagnosisActivity extends AppCompatActivity {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Symptom symptom = doc.toObject(Symptom.class)
-                                .withId(id, doc.getString("description"));
+                        Symptom symptom = doc.toObject(Symptom.class);
+                        symptom.setSymptomId(id);
                         symptomList.add(symptom);
                         adapter.notifyDataSetChanged();
                     }
