@@ -1,66 +1,84 @@
 package com.example.myapplication.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.ConditionLibraryAdapter;
+import com.example.myapplication.databinding.FragmentLibraryBinding;
+import com.example.myapplication.databinding.FragmentMedicalDatabaseBinding;
+import com.example.myapplication.model.Condition;
+import com.example.myapplication.ui.activity.admin.AddConditionActivity;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MedicalDatabaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class MedicalDatabaseFragment extends Fragment {
+    private FragmentMedicalDatabaseBinding binding;
+    private RecyclerView recyclerView;
+    private FirebaseFirestore firestore;
+    private ConditionLibraryAdapter adapter;
+    private List<Condition> conditionList;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+        binding = FragmentMedicalDatabaseBinding.inflate(getLayoutInflater());
+        View root = binding.getRoot();
+        recyclerView = binding.recyclerViewConditions;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public MedicalDatabaseFragment() {
-        // Required empty public constructor
+        binding.btnAddCondition.setOnClickListener((v) -> {
+            Intent intent = new Intent(this.getContext(), AddConditionActivity.class);
+            startActivity(intent);
+        });
+
+        recyclerView = binding.recyclerViewConditions;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        firestore = FirebaseFirestore.getInstance();
+        conditionList = new ArrayList<>();
+        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList);
+        recyclerView.setAdapter(adapter);
+        showData();
+        return root;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MedicalDatabaseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MedicalDatabaseFragment newInstance(String param1, String param2) {
-        MedicalDatabaseFragment fragment = new MedicalDatabaseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void showData() {
+        firestore.collection("Conditions").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange documentChange : value.getDocumentChanges()) {
+                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                        QueryDocumentSnapshot doc = documentChange.getDocument();
+                        String id = doc.getId();
+                        Condition condition = doc.toObject(Condition.class);
+                        condition.setConditionId(id);
+                        conditionList.add(condition);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medical_database, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

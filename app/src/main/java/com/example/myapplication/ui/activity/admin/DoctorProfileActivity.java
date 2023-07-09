@@ -6,10 +6,11 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 
-public class UserInformationActivity extends AppCompatActivity {
+public class DoctorProfileActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_information);
+        setContentView(R.layout.activity_doctor_profile);
     }
 }

@@ -5,19 +5,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toolbar;
 
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.ActivityAddConditionBinding;
 import com.example.myapplication.databinding.ActivityAddDoctorBinding;
-import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Specialization;
-import com.example.myapplication.model.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -26,65 +21,23 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class AddDoctorActivity extends AppCompatActivity {
-    private User user;
-    private ActivityAddDoctorBinding binding;
-    private String strName;
-    private String strPhone;
-    private String strDesc;
+public class AddConditionActivity extends AppCompatActivity {
+    private ActivityAddConditionBinding binding;
     private FirebaseFirestore firestore;
-    private Toolbar toolbar;
     private List<Specialization> specializationList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddDoctorBinding.inflate(getLayoutInflater());
+        binding = ActivityAddConditionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        Bundle bundle = getIntent().getExtras();
-        user = bundle.getParcelable("user");
-
         firestore = FirebaseFirestore.getInstance();
         specializationList = new ArrayList<>();
         addSpecializationData();
-        // copy the items from the main list to the selected item list for the preview
-        // if the item is checked then only the item should be displayed for the user
-
         initButtonsListeners();
-
-        binding.myToolbar.myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        binding.btnCreate.setOnClickListener(v -> {
-            strName = binding.edtName.getText().toString();
-            strDesc = binding.edtDescription.getText().toString();
-            strPhone = binding.edtPhone.getText().toString();
-            Map<String, Object> doctorInfo = new HashMap<>();
-            doctorInfo.put("name", strName);
-            doctorInfo.put("description", strDesc);
-            doctorInfo.put("phone", strPhone);
-
-            // TODO: un-hardcode
-            List<DocumentReference> refs = new ArrayList<>();
-            DocumentReference dRef = firestore.collection("Specializations").document(specializationList.get(0).getSpecializationId());
-            refs.add(dRef);
-
-            doctorInfo.put("specialization", refs);
-            firestore.collection("Doctors").document(user.getUserId()).set(doctorInfo);
-            firestore.collection("Users").document(user.getUserId()).update("user_level", "DOCTOR");
-
-            finish();
-        });
     }
+
     private void initButtonsListeners() {
         // handle the Open Alert Dialog button
         binding.btnSetSpecialization.setOnClickListener(v -> {
@@ -94,7 +47,7 @@ public class AddDoctorActivity extends AppCompatActivity {
                 specItems.add(spec.getName());
             }
             final String[] listItems = specItems.toArray(new String[0]);
-            boolean[] checkedItems = new boolean[listItems.length];
+            int checkedItem = 0;
             final List<String> selectedItems = Arrays.asList(listItems);
 
             // initially set the null for the text preview
@@ -106,8 +59,7 @@ public class AddDoctorActivity extends AppCompatActivity {
             builder.setTitle("Choose from existing specialization");
 
             // now this is the function which sets the alert dialog for multiple item selection ready
-            builder.setMultiChoiceItems(listItems, checkedItems, (dialog, which, isChecked) -> {
-                checkedItems[which] = isChecked;
+            builder.setSingleChoiceItems(listItems, checkedItem, (dialog, which) -> {
                 String currentItem = selectedItems.get(which);
             });
 
@@ -116,7 +68,7 @@ public class AddDoctorActivity extends AppCompatActivity {
 
             // handle the negative button of the alert dialog
             builder.setNegativeButton("Cancel", (dialog, which) -> {});
-            builder.setPositiveButton("Add", (dialog, which) -> {
+            builder.setPositiveButton("Set", (dialog, which) -> {
 
             });
             // create the builder

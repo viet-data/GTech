@@ -31,7 +31,7 @@ import java.util.List;
 public class LibraryFragment extends Fragment implements ClickConditionInterface {
 
     private FragmentLibraryBinding binding;
-    private RecyclerView recyclerViewConcepts;
+    private RecyclerView recyclerViewConditions;
     private FirebaseFirestore firestore;
     private ConditionLibraryAdapter adapter;
     private List<Condition> conditionList;
@@ -41,12 +41,14 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
         binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        recyclerViewConcepts = binding.recyclerViewConditions;
-        recyclerViewConcepts.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewConditions = binding.recyclerViewConditions;
+        recyclerViewConditions.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
         conditionList = new ArrayList<>();
-        adapter = new ConditionLibraryAdapter(LibraryFragment.this, conditionList, this);
-        recyclerViewConcepts.setAdapter(adapter);
+
+        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList);
+        recyclerViewConditions.setAdapter(adapter);
+
         showData();
         return root;
     }

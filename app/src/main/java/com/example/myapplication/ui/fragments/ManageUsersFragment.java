@@ -12,14 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.R;
 import com.example.myapplication.adapter.UserListAdapter;
-import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.databinding.FragmentManageUsersBinding;
-import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.User;
 import com.example.myapplication.ui.activity.admin.AddDoctorActivity;
-import com.example.myapplication.ui.activity.admin.AdminActivity;
 import com.example.myapplication.ui.activity.auth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -52,11 +48,6 @@ public class ManageUsersFragment extends Fragment {
             getActivity().finishAffinity();
         });
 
-        binding.btnAddDoctor.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddDoctorActivity.class);
-            startActivity(intent);
-        });
-
         recyclerViewUsers = binding.recyclerViewUsers;
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
@@ -78,7 +69,30 @@ public class ManageUsersFragment extends Fragment {
                         String id = doc.getId();
                         User user = doc.toObject(User.class);
                         user.setUserId(id);
+                        if (user.getUserLevel().equals("ADMIN")) continue;
                         users.add(user);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        firestore.collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange documentChange : value.getDocumentChanges()) {
+                    if (documentChange.getType() == DocumentChange.Type.MODIFIED) {
+                        QueryDocumentSnapshot doc = documentChange.getDocument();
+                        String id = doc.getId();
+                        User user = doc.toObject(User.class);
+                        user.setUserId(id);
+                        if (user.getUserLevel().equals("ADMIN")) continue;
+                        int i = 0;
+                        for (User u : users) {
+                            if (u.getUserId().equals(id)) {
+                                users.set(i, user); break;
+                            }
+                            i++;
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 }

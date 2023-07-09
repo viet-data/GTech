@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,8 +54,12 @@ public class SignupActivity extends AppCompatActivity {
         edtName = binding.edtName;
         edtPassword = binding.edtPassword;
         edtEmail = binding.edtEmail;
-
-
+        binding.myToolbar.myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         initializeListeners();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

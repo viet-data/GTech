@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.admin.AddDoctorActivity">
+    tools:context=".ui.activity.admin.AddConditionActivity">
 
     <include
         android:id="@+id/my_toolbar"
@@ -27,16 +27,15 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="@dimen/_18ssp"
-            android:text="Add extra doctor information"
+            android:text="Add a new condition"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_title">
@@ -45,27 +44,8 @@
                 android:id="@+id/edt_name"
                 android:layout_width="@dimen/_270sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:hint="Name"
-                android:inputType="text"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_phone"
-                android:layout_width="@dimen/_270sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:hint="Phone"
-                android:inputType="text"
-                />
+                android:hint="Condition name"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +55,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_phone">
+            app:layout_constraintTop_toBottomOf="@id/layout_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_description"
@@ -86,16 +66,13 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_set_specialization"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="Set specializations"
+            android:text="Set specialization"
             app:layout_constraintTop_toBottomOf="@+id/layout_description"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -104,7 +81,7 @@
             android:id="@+id/btn_new_specialization"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:text="Add specialization"
             android:layout_marginLeft="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="@+id/btn_set_specialization"
@@ -112,12 +89,34 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_set_symptoms"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Set symptoms"
+            app:layout_constraintTop_toBottomOf="@+id/btn_set_specialization"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_new_symptoms"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:text="Add symptom"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/btn_set_symptoms"
+            app:layout_constraintLeft_toRightOf="@id/btn_set_symptoms"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_create"
             android:layout_width="@dimen/_270sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_30sdp"
-            android:text="Create"
-            app:layout_constraintTop_toBottomOf="@+id/btn_set_specialization"
+            android:text="Create condition"
+            app:layout_constraintTop_toBottomOf="@+id/btn_set_symptoms"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

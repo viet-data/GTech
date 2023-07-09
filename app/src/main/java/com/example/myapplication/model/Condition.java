@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Condition implements Parcelable {
     private String name;
     private String description;
     private Specialization specializationOb;
-    private List<Symptom> symptomList = new ArrayList<>();
+    private List<Symptom> symptomList;
     private DocumentReference specialization;
     private List<DocumentReference> symptoms;
     private String specializationString;
@@ -35,6 +36,7 @@ public class Condition implements Parcelable {
 
     }
     public Condition changeToObject(String id){
+        symptomList = new ArrayList<>();
         this.conditionId = id;
         //System.out.println(this.specialization);
         this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -51,7 +53,9 @@ public class Condition implements Parcelable {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Symptom symptom = documentSnapshot.toObject(Symptom.class);
+
                     symptom.setSymptomId(documentSnapshot.getId());
+
                     symptomList.add(symptom);
                 }
             });
@@ -130,12 +134,14 @@ public class Condition implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(conditionId);
         dest.writeString(name);
         dest.writeString(description);
+
         dest.writeList(symptomList);
         dest.writeParcelable(specializationOb, flags);
+
 
     }
 
