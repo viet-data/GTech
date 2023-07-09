@@ -1,9 +1,14 @@
 package com.example.myapplication.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.PropertyName;
 
-public class User {
+public class User implements Parcelable {
     private String userId;
     @PropertyName("full_name")
     private String fullName;
@@ -50,4 +55,34 @@ public class User {
     public void setUserLevel(String userLevel) {
         this.userLevel = userLevel;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(userId);
+        dest.writeString(fullName);
+        dest.writeString(dateOfBirth);
+        dest.writeString(userLevel);
+    }
+    public User(Parcel in) {
+        userId = in.readString();
+        fullName = in.readString();
+        dateOfBirth = in.readString();
+        userLevel = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }
