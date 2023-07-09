@@ -2,6 +2,7 @@ package com.example.myapplication.ui.activity.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,12 @@ public class VerifyActivity extends AppCompatActivity {
             Intent intent = new Intent(VerifyActivity.this, LoginActivity.class);
             startActivity(intent);
             finishAffinity();
+        });
+        binding.myToolbar.myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
         });
     }
 }

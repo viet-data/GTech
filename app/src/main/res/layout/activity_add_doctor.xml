@@ -83,19 +83,48 @@
                 android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_phone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_description"
+                android:layout_width="@dimen/_270sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:hint="Description"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_specialization"
+            android:id="@+id/btn_set_specialization"
             style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="@dimen/_270sdp"
+            android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Set specialization"
-            app:layout_constraintTop_toBottomOf="@+id/layout_phone"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_description"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_new_specialization"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Add specialization"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/btn_set_specialization"
+            app:layout_constraintLeft_toRightOf="@id/btn_set_specialization"
             app:layout_constraintRight_toRightOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -104,7 +133,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:text="Create"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_specialization"
+            app:layout_constraintTop_toBottomOf="@+id/btn_set_specialization"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
