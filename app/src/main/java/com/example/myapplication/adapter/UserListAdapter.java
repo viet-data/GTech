@@ -46,10 +46,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         holder.txtUserLevel.setText(userLevel);
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtName;
         TextView txtUserLevel;
-        public UserViewHolder(@NonNull View itemView){
+        public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             txtName = itemView.findViewById(R.id.txt_name);

@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,7 +8,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
-import com.google.firebase.firestore.PropertyName;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -16,35 +16,105 @@ import java.util.List;
 
 public class Condition implements Parcelable {
     @Exclude
-    private String conditionId;
+    protected String conditionId;
 
     private String name;
     private String description;
-    private Specialization specialization;
-    private List<Symptom> symptoms;
+    private Specialization specializationOb;
+    private List<Symptom> symptomList = new ArrayList<>();
+    private DocumentReference specialization;
+    private List<DocumentReference> symptoms;
+
 
     public Condition() {}
-
-    public Condition(String name, String description, Specialization specialization) {
+    public Condition(String conditionId, String name, String description ){
+        this.conditionId = conditionId;
         this.name = name;
         this.description = description;
+
+    }
+    public Condition changeToObject(String id){
+        this.conditionId = id;
+        //System.out.println(this.specialization);
+        this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                specializationOb = documentSnapshot.toObject(Specialization.class);
+
+            }
+        });
+
+        for (DocumentReference dR : this.symptoms){
+            //System.out.println(dR.getId());
+            dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    symptomList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
+                }
+            });
+        }
+        return (Condition) this;
+    }
+
+    public Specialization getSpecializationOb() {
+        return  this.specializationOb;
+    }
+
+    public DocumentReference getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecializationOb(Specialization anSpecialization) {
+        this.specializationOb = anSpecialization;
+    }
+
+    public List<DocumentReference> getSymptoms(){
+        return symptoms;
+    }
+    public List<Symptom> getSymptomList(){
+        return symptomList;
+    }
+
+    @Exclude
+    public String getConditionId() {
+        return conditionId;
+    }
+    @Exclude
+    public void setConditionId(String conditionId) {
+        this.conditionId = conditionId;
+    }
+    public Condition(String name, String description, Specialization specializationOb) {
+        this.name = name;
+        this.description = description;
+        this.specializationOb = specializationOb;
+    }
+    public void addSymptom(Symptom symptom) {
+
+        this.symptomList.add(symptom);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSymptomList(List<Symptom> symptomList) {
+        this.symptomList = symptomList;
+    }
+
+    public void setSpecialization(DocumentReference specialization) {
         this.specialization = specialization;
     }
 
-    public Condition withId(@NonNull String id) {
-        this.conditionId = id;
-        this.name = name;
-        return (Condition) this;
-    }
-
-    public void addSymptom(Symptom symptom) {
-
-        this.symptoms.add(symptom);
-    }
-    public Condition withIdAndName(@NonNull String id, @NonNull String name) {
-        this.conditionId = id;
-        this.name = name;
-        return (Condition) this;
+    public void setSymptoms(List<DocumentReference> symptoms) {
+        this.symptoms = symptoms;
     }
 
     public String getName() {
@@ -57,10 +127,12 @@ public class Condition implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
+    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
         dest.writeString(conditionId);
         dest.writeString(name);
         dest.writeString(description);
+
+
     }
 
     public Condition(Parcel in) {
@@ -80,8 +152,4 @@ public class Condition implements Parcelable {
             return new Condition[size];
         }
     };
-
-    public List<Symptom> getSymptoms() {
-        return symptoms;
-    }
 }

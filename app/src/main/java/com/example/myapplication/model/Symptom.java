@@ -1,8 +1,8 @@
 package com.example.myapplication.model;
 
-import com.google.firebase.firestore.Exclude;
+import androidx.annotation.NonNull;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import com.google.firebase.firestore.Exclude;
 
 public class Symptom {
 

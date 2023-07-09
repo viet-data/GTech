@@ -19,7 +19,8 @@ public class VerifyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_verify);
+        binding = ActivityVerifyBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         initializeListeners();
     }
