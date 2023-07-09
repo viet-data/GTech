@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.Interface.ClickConditionInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.databinding.FragmentLibraryBinding;
@@ -29,7 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicalDatabaseFragment extends Fragment {
+public class MedicalDatabaseFragment extends Fragment implements ClickConditionInterface {
     private FragmentMedicalDatabaseBinding binding;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
@@ -52,7 +53,7 @@ public class MedicalDatabaseFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
         conditionList = new ArrayList<>();
-        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList);
+        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList, this);
         recyclerView.setAdapter(adapter);
         showData();
         return root;
@@ -80,5 +81,10 @@ public class MedicalDatabaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }

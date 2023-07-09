@@ -25,15 +25,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.admin.AddDoctorActivity"
-
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.admin.DoctorProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.admin.AddConditionActivity"
 
-            android:exported="false" />
-        <activity
-            android:name=".ui.activity.admin.AddDoctorActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.admin.UserProfileActivity"

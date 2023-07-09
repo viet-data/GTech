@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,9 +33,11 @@ public class ConditionLibraryAdapter extends RecyclerView.Adapter<ConditionLibra
     private Context context;
     private FirebaseFirestore firestore;
 
-    public ConditionLibraryAdapter(LibraryFragment libraryFragment, List<Condition> conditions, ClickConditionInterface clickConditionInterface) {
+
+
+    public ConditionLibraryAdapter(Context context, List<Condition> conditions, ClickConditionInterface clickConditionInterface) {
         this.conditionList = conditions;
-        this.fragment = libraryFragment;
+        this.context = context;
         this.clickConditionInterface = clickConditionInterface;
 
     }
