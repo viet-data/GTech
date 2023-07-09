@@ -1,8 +1,14 @@
 package com.example.myapplication.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.widget.GridLayout;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.Exclude;
 
-public class Specialization {
+public class Specialization implements Parcelable {
     private String specializationId;
     private String name;
     private String description;
@@ -33,4 +39,36 @@ public class Specialization {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
+        dest.writeString(specializationId);
+        dest.writeString(name);
+        dest.writeString(description);
+
+
+    }
+
+    public Specialization(Parcel in) {
+        specializationId = in.readString();
+        name = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Specialization> CREATOR = new Creator<Specialization>() {
+        @Override
+        public Specialization createFromParcel(Parcel source) {
+            return new Specialization(source);
+        }
+
+        @Override
+        public Specialization[] newArray(int size) {
+            return new Specialization[size];
+        }
+    };
 }

@@ -25,6 +25,7 @@ public class Condition implements Parcelable {
     private List<Symptom> symptomList;
     private DocumentReference specialization;
     private List<DocumentReference> symptoms;
+    private String specializationString;
 
 
     public Condition() {}
@@ -52,7 +53,9 @@ public class Condition implements Parcelable {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Symptom symptom = documentSnapshot.toObject(Symptom.class);
-                            symptom.setSymptomId(documentSnapshot.getId());
+
+                    symptom.setSymptomId(documentSnapshot.getId());
+
                     symptomList.add(symptom);
                 }
             });
@@ -135,12 +138,20 @@ public class Condition implements Parcelable {
         dest.writeString(conditionId);
         dest.writeString(name);
         dest.writeString(description);
+
+        dest.writeList(symptomList);
+        dest.writeParcelable(specializationOb, flags);
+
+
     }
 
     public Condition(Parcel in) {
         conditionId = in.readString();
         name = in.readString();
         description = in.readString();
+        symptomList = new ArrayList<Symptom>();
+        in.readList(symptomList, Symptom.class.getClassLoader());
+        specializationOb = in.readParcelable(Specialization.class.getClassLoader());
     }
 
     public static final Creator<Condition> CREATOR = new Creator<Condition>() {

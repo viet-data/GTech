@@ -12,6 +12,13 @@
         android:paddingHorizontal="@dimen/_8sdp"
         android:paddingVertical="@dimen/_8sdp">
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/check_symptom"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/baseline_chevron_right_24" />
 
         <TextView
             android:id="@+id/txt_category"
