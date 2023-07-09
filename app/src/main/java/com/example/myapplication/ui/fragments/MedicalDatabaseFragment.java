@@ -13,12 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.Interface.ClickConditionInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.databinding.FragmentMedicalDatabaseBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.ui.activity.admin.AddConditionActivity;
+import com.example.myapplication.ui.activity.patient.ConditionDetailsActivity;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,7 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicalDatabaseFragment extends Fragment {
+public class MedicalDatabaseFragment extends Fragment implements ClickConditionInterface {
     private FragmentMedicalDatabaseBinding binding;
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
@@ -52,7 +54,7 @@ public class MedicalDatabaseFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
         conditionList = new ArrayList<>();
-        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList);
+        adapter = new ConditionLibraryAdapter(this.getContext(), conditionList, this);
         recyclerView.setAdapter(adapter);
         showData();
         return root;
@@ -66,7 +68,7 @@ public class MedicalDatabaseFragment extends Fragment {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class);
+                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
                         condition.setConditionId(id);
                         conditionList.add(condition);
                         adapter.notifyDataSetChanged();
@@ -80,5 +82,16 @@ public class MedicalDatabaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Condition condition = conditionList.get(position);
+        Intent intent = new Intent(getContext(), ConditionDetailsActivity.class);
+        intent.putExtra("conditionId", condition.getConditionId());
+        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("condition",condition);
+        startActivity(intent);
     }
 }

@@ -46,13 +46,9 @@ public class SymptomListAdapter extends RecyclerView.Adapter<SymptomListAdapter.
     @Override
     public SymptomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(this.activity instanceof DiagnosisActivity){
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_symptom_with_cb, parent, false);
-        }else{
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_symptom, parent, false);
-        }
+
 
         firestore = FirebaseFirestore.getInstance();
 
