@@ -18,6 +18,7 @@ import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.databinding.FragmentManageUsersBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.User;
+import com.example.myapplication.ui.activity.admin.AddDoctorActivity;
 import com.example.myapplication.ui.activity.admin.AdminActivity;
 import com.example.myapplication.ui.activity.auth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,10 @@ public class ManageUsersFragment extends Fragment {
             getActivity().finishAffinity();
         });
 
+        binding.btnAddDoctor.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddDoctorActivity.class);
+            startActivity(intent);
+        });
 
         recyclerViewUsers = binding.recyclerViewUsers;
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.DiagnoseFragment">
+    tools:context=".ui.fragments.ManageUsersFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/baseline_exit_to_app_24"
         app:iconSize="@dimen/_20sdp"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_10sdp"
         app:iconSize="@dimen/_20sdp"
+        android:text=""
         app:icon="@drawable/baseline_newspaper_24"
         app:layout_constraintEnd_toStartOf="@id/btn_logout"
         app:layout_constraintTop_toTopOf="@id/btn_logout" />
@@ -33,21 +35,21 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_doctor"
         style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:text="Add doctor"
+        android:layout_width="@dimen/_115sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="@string/add_doctor"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
         app:icon="@drawable/baseline_person_add_24"
         app:iconSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_view_users" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_30sdp"
-        android:text="Manage Users"
+        android:text="@string/manage_users"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +64,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_doctor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

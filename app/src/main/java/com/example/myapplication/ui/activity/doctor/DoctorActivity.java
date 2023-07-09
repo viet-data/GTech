@@ -17,12 +17,5 @@ public class DoctorActivity extends AppCompatActivity {
 
         binding = ActivityDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        binding.btnLogout.setOnClickListener((v) -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(DoctorActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finishAffinity();
-        });
     }
 }

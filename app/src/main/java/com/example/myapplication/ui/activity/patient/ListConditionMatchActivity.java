@@ -4,19 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.myapplication.R;
 import com.example.myapplication.adapter.ConditionMatchAdapter;
-import com.example.myapplication.adapter.UserListAdapter;
-import com.example.myapplication.databinding.ActivityDiagnosisBinding;
 import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.model.Condition;
-import com.example.myapplication.model.User;
-import com.example.myapplication.ui.activity.admin.ListDoctorsActivity;
 
 import java.util.ArrayList;
 

@@ -19,6 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySignupBinding;
 import com.example.myapplication.utils.DateFormatUtil;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -34,17 +35,19 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     ActivitySignupBinding binding;
-    com.google.android.material.textfield.TextInputEditText edtDob;
-    com.google.android.material.textfield.TextInputEditText edtName;
-    com.google.android.material.textfield.TextInputEditText edtPassword;
-    com.google.android.material.textfield.TextInputEditText edtEmail;
+    TextInputEditText edtDob;
+    TextInputEditText edtName;
+    TextInputEditText edtPassword;
+    TextInputEditText edtEmail;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_signup);
+
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         edtDob = binding.edtDob;
         edtName = binding.edtName;

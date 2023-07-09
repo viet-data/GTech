@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.activity.auth.VerifyActivity"
-        android:padding="@dimen/_16ssp">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activity.auth.VerifyActivity"
+    android:padding="@dimen/_16ssp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_title"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_80sdp"
-            android:text="Your account is not verified."
-            android:textStyle="bold"
-            android:textSize="@dimen/_18ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_title"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:text="Your account is not verified."
+        android:textStyle="bold"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_checkinbox"
-            style="@style/TextAppearance.Material3.TitleSmall"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:textSize="@dimen/_12ssp"
-            android:text="@string/check_inbox"
-            app:layout_constraintStart_toStartOf="@id/txt_title"
-            app:layout_constraintTop_toBottomOf="@id/txt_title" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_checkinbox"
+        style="@style/TextAppearance.Material3.TitleSmall"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:textSize="@dimen/_12ssp"
+        android:text="@string/check_inbox"
+        app:layout_constraintStart_toStartOf="@id/txt_title"
+        app:layout_constraintTop_toBottomOf="@id/txt_title" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_verified"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_checkinbox"
-            android:text="I have verified my email"
-            style="@style/Widget.Material3.Button"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_verified"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_checkinbox"
+        android:text="I have verified my email"
+        style="@style/Widget.Material3.Button"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_resend"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_verified"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:text="Send another email"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_resend"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_verified"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:text="Send another email"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_logout"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_resend"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:text="Log out"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_resend"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:text="Log out"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</layout>
 
