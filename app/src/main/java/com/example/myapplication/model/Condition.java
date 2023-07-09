@@ -21,7 +21,7 @@ public class Condition implements Parcelable {
     private String name;
     private String description;
     private Specialization specializationOb;
-    private List<Symptom> symptomList = new ArrayList<>();
+    private List<Symptom> symptomList;
     private DocumentReference specialization;
     private List<DocumentReference> symptoms;
 
@@ -34,6 +34,7 @@ public class Condition implements Parcelable {
 
     }
     public Condition changeToObject(String id){
+        symptomList = new ArrayList<>();
         this.conditionId = id;
         //System.out.println(this.specialization);
         this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -49,7 +50,9 @@ public class Condition implements Parcelable {
             dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    symptomList.add(documentSnapshot.toObject(Symptom.class).withId(documentSnapshot.getId()));
+                    Symptom symptom = documentSnapshot.toObject(Symptom.class);
+                            symptom.setSymptomId(documentSnapshot.getId());
+                    symptomList.add(symptom);
                 }
             });
         }

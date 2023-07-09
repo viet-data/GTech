@@ -23,7 +23,7 @@
             android:name=".ui.activity.admin.AddDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.admin.UserInformationActivity"
+            android:name=".ui.activity.admin.UpdateDoctorProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.patient.ListConditionMatchActivity"

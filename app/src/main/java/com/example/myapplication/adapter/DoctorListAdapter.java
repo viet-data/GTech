@@ -11,54 +11,49 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.User;
-import com.example.myapplication.ui.activity.admin.UserInformationActivity;
+import com.example.myapplication.model.Doctor;
+import com.example.myapplication.ui.activity.admin.UpdateDoctorProfileActivity;
 
 import java.util.List;
 
-public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
-    private List<User> users;
+public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.UserViewHolder> {
+    private List<Doctor> doctors;
     private Context context;
 
-    public UserListAdapter(Context context, List<User> users) {
-        this.users = users;
+    public DoctorListAdapter(Context context, List<Doctor> doctors) {
+        this.doctors = doctors;
         this.context = context;
     }
 
     @Override
     public int getItemCount(){
-        return users == null ? 0 : users.size();
+        return doctors == null ? 0 : doctors.size();
     }
 
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_doctor, parent, false);
         return new UserViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = users.get(position);
-        holder.txtName.setText(String.valueOf(user.getFullName()));
-        String userLevel = user.getUserLevel();
-        userLevel = userLevel.substring(0, 1) + userLevel.substring(1).toLowerCase();
-        holder.txtUserLevel.setText(userLevel);
+        Doctor doctor = doctors.get(position);
+        holder.txtName.setText(String.valueOf(doctor.getName()));
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtName;
-        TextView txtUserLevel;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             txtName = itemView.findViewById(R.id.txt_name);
-            txtUserLevel = itemView.findViewById(R.id.txt_access_level);
         }
         @Override
         public void onClick(View v) {
             Context context = v.getContext();
-            Intent intent = new Intent(context, UserInformationActivity.class);
+            Intent intent = new Intent(context, UpdateDoctorProfileActivity.class);
             context.startActivity(intent);
         }
     }
