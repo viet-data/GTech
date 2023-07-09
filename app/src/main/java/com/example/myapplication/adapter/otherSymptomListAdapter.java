@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymptomListAdapter extends RecyclerView.Adapter<SymptomListAdapter.SymptomViewHolder>{
+public class otherSymptomListAdapter extends RecyclerView.Adapter<otherSymptomListAdapter.otherSymptomViewHolder>{
 
 
     private List<Symptom> symptomList;
@@ -28,7 +28,7 @@ public class SymptomListAdapter extends RecyclerView.Adapter<SymptomListAdapter.
     private FirebaseFirestore firestore;
     private List<Symptom> selectedSymptomList;
 
-    public SymptomListAdapter(AppCompatActivity appCompatActivity, List<Symptom> symptoms) {
+    public otherSymptomListAdapter(AppCompatActivity appCompatActivity, List<Symptom> symptoms) {
         this.symptomList = symptoms;
         this.activity = appCompatActivity;
         this.selectedSymptomList = new ArrayList<>();
@@ -44,49 +44,33 @@ public class SymptomListAdapter extends RecyclerView.Adapter<SymptomListAdapter.
 
     @NonNull
     @Override
-    public SymptomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if(this.activity instanceof DiagnosisActivity){
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_symptom_with_cb, parent, false);
-        }else{
-            view = LayoutInflater.from(parent.getContext())
+    public otherSymptomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_symptom, parent, false);
-        }
 
         firestore = FirebaseFirestore.getInstance();
 
-        return new SymptomViewHolder(view);
+        return new otherSymptomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SymptomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull otherSymptomViewHolder holder, int position) {
         Symptom symptom = symptomList.get(position);
         holder.txtSymptomDescription.setText(symptom.getDescription());
-        holder.cbSymptom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.cbSymptom.isChecked()){
-                    selectedSymptomList.add(symptom);
-                }else{
-                    selectedSymptomList.remove(symptom);
-                }
-            }
-        });
+
     }
 
     @Override
     public int getItemCount() {
         return symptomList==null ? 0 : symptomList.size();
     }
-    public class SymptomViewHolder extends RecyclerView.ViewHolder {
+    public class otherSymptomViewHolder extends RecyclerView.ViewHolder {
         TextView txtSymptomDescription;
-        CheckBox cbSymptom;
-        public SymptomViewHolder(@NonNull View itemView) {
+        public otherSymptomViewHolder(@NonNull View itemView) {
             super(itemView);
             txtSymptomDescription = itemView.findViewById(R.id.txt_symptom_desc);
 
-            cbSymptom = itemView.findViewById(R.id.check_symptom);
         }
     }
 }

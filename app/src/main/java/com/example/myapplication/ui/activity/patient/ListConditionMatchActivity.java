@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.myapplication.Interface.ClickConditionInterface;
 import com.example.myapplication.adapter.ConditionMatchAdapter;
 import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.model.Condition;
@@ -47,4 +48,6 @@ public class ListConditionMatchActivity extends AppCompatActivity {
         conditionMatchAdapter = new ConditionMatchAdapter(ListConditionMatchActivity.this, conditions);
         recyclerView.setAdapter(conditionMatchAdapter);
     }
+
+
 }
