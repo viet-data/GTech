@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,12 +131,10 @@ public class Condition implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(conditionId);
         dest.writeString(name);
         dest.writeString(description);
-
-
     }
 
     public Condition(Parcel in) {

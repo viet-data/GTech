@@ -12,9 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.adapter.DoctorListAdapter;
+import com.example.myapplication.adapter.UserListAdapter;
 import com.example.myapplication.databinding.FragmentManageUsersBinding;
-import com.example.myapplication.model.Doctor;
 import com.example.myapplication.model.User;
 import com.example.myapplication.ui.activity.admin.AddDoctorActivity;
 import com.example.myapplication.ui.activity.auth.LoginActivity;
@@ -33,8 +32,8 @@ public class ManageUsersFragment extends Fragment {
     private FragmentManageUsersBinding binding;
     private RecyclerView recyclerViewUsers;
     private FirebaseFirestore firestore;
-    private DoctorListAdapter adapter;
-    private List<Doctor> doctors;
+    private UserListAdapter adapter;
+    private List<User> users;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,33 +48,51 @@ public class ManageUsersFragment extends Fragment {
             getActivity().finishAffinity();
         });
 
-        binding.btnAddDoctor.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AddDoctorActivity.class);
-            startActivity(intent);
-        });
-
         recyclerViewUsers = binding.recyclerViewUsers;
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         firestore = FirebaseFirestore.getInstance();
 
-        doctors = new ArrayList<>();
-        adapter = new DoctorListAdapter(ManageUsersFragment.this.getContext(), doctors);
+        users = new ArrayList<>();
+        adapter = new UserListAdapter(ManageUsersFragment.this.getContext(), users);
         recyclerViewUsers.setAdapter(adapter);
         showData();
         return root;
     }
 
     private void showData() {
-        firestore.collection("Doctors").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        firestore.collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Doctor doctor = doc.toObject(Doctor.class);
-                        doctor.setDoctorId(id);
-                        doctors.add(doctor);
+                        User user = doc.toObject(User.class);
+                        user.setUserId(id);
+                        if (user.getUserLevel().equals("ADMIN")) continue;
+                        users.add(user);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        firestore.collection("Users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentChange documentChange : value.getDocumentChanges()) {
+                    if (documentChange.getType() == DocumentChange.Type.MODIFIED) {
+                        QueryDocumentSnapshot doc = documentChange.getDocument();
+                        String id = doc.getId();
+                        User user = doc.toObject(User.class);
+                        user.setUserId(id);
+                        if (user.getUserLevel().equals("ADMIN")) continue;
+                        int i = 0;
+                        for (User u : users) {
+                            if (u.getUserId().equals(id)) {
+                                users.set(i, user); break;
+                            }
+                            i++;
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 }

@@ -1,5 +1,6 @@
 package com.example.myapplication.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,12 @@ import java.util.List;
 public class ConditionLibraryAdapter extends RecyclerView.Adapter<ConditionLibraryAdapter.ConditionViewHolder> {
 
     private List<Condition> conditionList;
-    private LibraryFragment fragment;
+    private Context context;
     private FirebaseFirestore firestore;
 
-    public ConditionLibraryAdapter(LibraryFragment libraryFragment, List<Condition> conditions) {
+    public ConditionLibraryAdapter(Context context, List<Condition> conditions) {
         this.conditionList = conditions;
-        this.fragment = libraryFragment;
+        this.context = context;
     }
 
 

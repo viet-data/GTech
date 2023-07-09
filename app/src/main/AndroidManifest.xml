@@ -20,11 +20,18 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.admin.DoctorProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.AddConditionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.admin.AddDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.admin.UpdateDoctorProfileActivity"
-            android:exported="false" />
+            android:name=".ui.activity.admin.UserProfileActivity"
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".ui.activity.patient.ListConditionMatchActivity"
             android:exported="false" />
