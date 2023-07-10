@@ -4,20 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.Interface.ClickConditionInterface;
+import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.adapter.ConditionMatchAdapter;
 import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.model.Condition;
 
 import java.util.ArrayList;
 
-public class ListConditionMatchActivity extends AppCompatActivity {
+public class ListConditionMatchActivity extends AppCompatActivity implements ClickConditionInterface{
     ArrayList<Condition> conditions;
-    ConditionMatchAdapter conditionMatchAdapter;
+    ConditionLibraryAdapter conditionMatchAdapter;
     RecyclerView recyclerView;
     Toolbar toolbar;
     ActivityListConditionMatchBinding binding;
@@ -45,9 +47,18 @@ public class ListConditionMatchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //conditions = new ArrayList<>();
-        conditionMatchAdapter = new ConditionMatchAdapter(ListConditionMatchActivity.this, conditions);
+        conditionMatchAdapter = new ConditionLibraryAdapter(ListConditionMatchActivity.this, conditions, this);
         recyclerView.setAdapter(conditionMatchAdapter);
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+        Condition condition = conditions.get(position);
+        Intent intent = new Intent(this, ConditionDetailsActivity.class);
+        intent.putExtra("conditionId", condition.getConditionId());
+        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("condition",condition);
+        startActivity(intent);
+    }
 }

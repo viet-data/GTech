@@ -20,6 +20,7 @@ import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.databinding.FragmentMedicalDatabaseBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.ui.activity.admin.AddConditionActivity;
+import com.example.myapplication.ui.activity.patient.ConditionDetailsActivity;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,7 +68,7 @@ public class MedicalDatabaseFragment extends Fragment implements ClickConditionI
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class);
+                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
                         condition.setConditionId(id);
                         conditionList.add(condition);
                         adapter.notifyDataSetChanged();
@@ -85,6 +86,12 @@ public class MedicalDatabaseFragment extends Fragment implements ClickConditionI
 
     @Override
     public void onItemClick(int position) {
+        Condition condition = conditionList.get(position);
+        Intent intent = new Intent(getContext(), ConditionDetailsActivity.class);
+        intent.putExtra("conditionId", condition.getConditionId());
+        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("condition",condition);
+        startActivity(intent);
 
     }
 }
