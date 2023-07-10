@@ -71,7 +71,7 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="@dimen/_130sdp"
             android:layout_height="@dimen/_40sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="Set specialization"
             app:layout_constraintTop_toBottomOf="@+id/layout_description"
             app:layout_constraintLeft_toLeftOf="parent"/>

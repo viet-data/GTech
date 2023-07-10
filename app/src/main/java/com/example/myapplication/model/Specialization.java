@@ -46,12 +46,19 @@ public class Specialization implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "Specialization{" +
+                "specializationId='" + specializationId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    @Override
     public void writeToParcel(@androidx.annotation.NonNull Parcel dest, int flags) {
         dest.writeString(specializationId);
         dest.writeString(name);
         dest.writeString(description);
-
-
     }
 
     public Specialization(Parcel in) {

@@ -7,15 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.Interface.ClickConditionInterface;
+import com.example.myapplication.R;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.adapter.ConditionMatchAdapter;
 import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.model.Condition;
+import com.example.myapplication.model.Symptom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListConditionMatchActivity extends AppCompatActivity implements ClickConditionInterface{
     ArrayList<Condition> conditions;
@@ -23,6 +28,8 @@ public class ListConditionMatchActivity extends AppCompatActivity implements Cli
     RecyclerView recyclerView;
     Toolbar toolbar;
     ActivityListConditionMatchBinding binding;
+
+    Button button;
 
 
     @Override
@@ -38,6 +45,19 @@ public class ListConditionMatchActivity extends AppCompatActivity implements Cli
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        button = findViewById(R.id.btn_show_list);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListConditionMatchActivity.this, ListDoctorActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("condition_list", conditions);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
