@@ -43,7 +43,7 @@ public class Condition implements Parcelable {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 specializationOb = documentSnapshot.toObject(Specialization.class);
-
+                specializationOb.setSpecializationId(documentSnapshot.getId());
             }
         });
 

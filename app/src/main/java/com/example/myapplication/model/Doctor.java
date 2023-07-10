@@ -1,6 +1,8 @@
 package com.example.myapplication.model;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
@@ -15,7 +17,7 @@ public class Doctor {
     private String description;
     private String phone;
     private List<Specialization> specializationList;
-    private List<DocumentReference> specializations;
+    private List<DocumentReference> specialization;
 
     public Doctor() {
         super();
@@ -70,32 +72,34 @@ public class Doctor {
         this.specializationList = specializationList;
     }
     @PropertyName("specialization")
-    public List<DocumentReference> getSpecializations() {
-        return specializations;
+    public List<DocumentReference> getSpecialization() {
+        return specialization;
     }
 
     @PropertyName("specialization")
-    public void setSpecializations(List<DocumentReference> specializations) {
-        this.specializations = specializations;
+    public void setSpecialization(List<DocumentReference> specialization) {
+        this.specialization = specialization;
     }
 
-    public Doctor changeToObject(String id){
+    public Task<Doctor> changeToObject(String id){
         specializationList = new ArrayList<>();
         this.doctorId = id;
         //System.out.println(this.specialization);
-
-
-        for (DocumentReference dR : this.specializations){
+        List<Task<DocumentSnapshot>> tasks = new ArrayList<>();
+        for (DocumentReference dR : this.specialization){
+            Task<DocumentSnapshot> task = dR.get();
+            tasks.add(task);
             //System.out.println(dR.getId());
-            dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
+        }
+        return Tasks.whenAllSuccess(tasks).continueWith(task -> {
+            List<Object> snapshots = task.getResult();
+            for (Object snapshot : snapshots) {
+                    DocumentSnapshot documentSnapshot = (DocumentSnapshot) snapshot;
                     Specialization spec = documentSnapshot.toObject(Specialization.class);
                     spec.setSpecializationId(documentSnapshot.getId());
                     specializationList.add(spec);
-                }
-            });
-        }
-        return (Doctor) this;
+            }
+            return this;
+        });
     }
 }

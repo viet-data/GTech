@@ -65,9 +65,5 @@ public class ConditionDetailsActivity extends AppCompatActivity {
         symptomList = condition.getSymptomList();
         symptomListAdapter = new otherSymptomListAdapter(ConditionDetailsActivity.this, symptomList);
         recyclerViewSymptoms.setAdapter(symptomListAdapter);
-
-
-
-
     }
 }
