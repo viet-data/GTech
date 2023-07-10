@@ -86,12 +86,12 @@ public class MedicalDatabaseFragment extends Fragment implements ClickConditionI
 
     @Override
     public void onItemClick(int position) {
-
         Condition condition = conditionList.get(position);
         Intent intent = new Intent(getContext(), ConditionDetailsActivity.class);
         intent.putExtra("conditionId", condition.getConditionId());
         intent.putExtra("specialization", condition.getSpecializationOb());
         intent.putExtra("condition",condition);
         startActivity(intent);
+
     }
 }
