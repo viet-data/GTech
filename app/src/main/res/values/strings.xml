@@ -34,4 +34,6 @@
     <string name="doctor_profile">Doctor Profile</string>
     <string name="add_doctor">Add doctor</string>
     <string name="medical_database_txt">Medical Database</string>
+    <string name="specialization">Specialization</string>
+    <string name="description">Description</string>
 </resources>

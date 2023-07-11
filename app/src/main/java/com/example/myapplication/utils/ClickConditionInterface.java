@@ -1,4 +1,4 @@
-package com.example.myapplication.Interface;
+package com.example.myapplication.utils;
 
 public interface ClickConditionInterface {
     void onItemClick(int position);

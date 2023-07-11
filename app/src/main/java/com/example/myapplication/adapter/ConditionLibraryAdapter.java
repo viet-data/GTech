@@ -2,10 +2,6 @@ package com.example.myapplication.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.content.Context;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Interface.ClickConditionInterface;
+import com.example.myapplication.utils.ClickConditionInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Condition;
-import com.example.myapplication.ui.activity.patient.ConditionDetailsActivity;
-import com.example.myapplication.ui.activity.patient.DiagnosisActivity;
-import com.example.myapplication.ui.activity.patient.ListConditionMatchActivity;
-import com.example.myapplication.ui.fragments.LibraryFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;

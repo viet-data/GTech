@@ -1,12 +1,13 @@
 package com.example.myapplication.model;
 
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Exclude;
@@ -21,12 +22,10 @@ public class Condition implements Parcelable {
 
     private String name;
     private String description;
-    private Specialization specializationOb;
+    private Specialization specializationObject;
     private List<Symptom> symptomList;
     private DocumentReference specialization;
     private List<DocumentReference> symptoms;
-    private String specializationString;
-
 
     public Condition() {}
     public Condition(String conditionId, String name, String description ){
@@ -35,44 +34,76 @@ public class Condition implements Parcelable {
         this.description = description;
 
     }
-    public Condition changeToObject(String id){
+
+    public Task<Condition> changeToObject(String id) {
         symptomList = new ArrayList<>();
         this.conditionId = id;
-        //System.out.println(this.specialization);
-        this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                specializationOb = documentSnapshot.toObject(Specialization.class);
-                specializationOb.setSpecializationId(documentSnapshot.getId());
-            }
-        });
+
+        List<Task<DocumentSnapshot>> tasks = new ArrayList<>();
+
+        Task<DocumentSnapshot> specTask = specialization.get();
+        tasks.add(specTask);
 
         for (DocumentReference dR : this.symptoms){
-            //System.out.println(dR.getId());
-            dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Symptom symptom = documentSnapshot.toObject(Symptom.class);
-
-                    symptom.setSymptomId(documentSnapshot.getId());
-
-                    symptomList.add(symptom);
-                }
-            });
+            Task<DocumentSnapshot> task = dR.get();
+            tasks.add(task);
         }
-        return (Condition) this;
+        return Tasks.whenAllSuccess(tasks).continueWith(task -> {
+            List<Object> snapshots = task.getResult();
+            int i = 0;
+            for (Object snapshot : snapshots) {
+                DocumentSnapshot documentSnapshot = (DocumentSnapshot) snapshot;
+                if (i == 0) {
+                    specializationObject = documentSnapshot.toObject(Specialization.class);
+                    specializationObject.setSpecializationId(documentSnapshot.getId());
+                    i++;
+                } else {
+                    Symptom symp = documentSnapshot.toObject(Symptom.class);
+                    symp.setSymptomId(documentSnapshot.getId());
+                    symptomList.add(symp);
+                }
+            }
+            return this;
+        });
     }
+//    public Condition updateToObject(String id){
+//        symptomList = new ArrayList<>();
+//        this.conditionId = id;
+//        //System.out.println(this.specialization);
+//        this.specialization.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                specializationObject = documentSnapshot.toObject(Specialization.class);
+//                specializationObject.setSpecializationId(documentSnapshot.getId());
+//            }
+//        });
+//
+//        for (DocumentReference dR : this.symptoms){
+//            //System.out.println(dR.getId());
+//            dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                @Override
+//                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                    Symptom symptom = documentSnapshot.toObject(Symptom.class);
+//
+//                    symptom.setSymptomId(documentSnapshot.getId());
+//
+//                    symptomList.add(symptom);
+//                }
+//            });
+//        }
+//        return (Condition) this;
+//    }
 
-    public Specialization getSpecializationOb() {
-        return  this.specializationOb;
+    public Specialization getSpecializationObject() {
+        return  this.specializationObject;
     }
 
     public DocumentReference getSpecialization() {
         return specialization;
     }
 
-    public void setSpecializationOb(Specialization anSpecialization) {
-        this.specializationOb = anSpecialization;
+    public void setSpecializationObject(Specialization specializationObj) {
+        this.specializationObject = specializationObj;
     }
 
     public List<DocumentReference> getSymptoms(){
@@ -90,11 +121,11 @@ public class Condition implements Parcelable {
     public void setConditionId(String conditionId) {
         this.conditionId = conditionId;
     }
-    public Condition(String name, String description, Specialization specializationOb) {
-        this.name = name;
-        this.description = description;
-        this.specializationOb = specializationOb;
-    }
+//    public Condition(String name, String description, Specialization specializationObj) {
+//        this.name = name;
+//        this.description = description;
+//        this.specializationObject = specializationObj;
+//    }
     public void addSymptom(Symptom symptom) {
 
         this.symptomList.add(symptom);
@@ -140,7 +171,7 @@ public class Condition implements Parcelable {
         dest.writeString(description);
 
         dest.writeList(symptomList);
-        dest.writeParcelable(specializationOb, flags);
+        dest.writeParcelable(specializationObject, flags);
 
 
     }
@@ -151,7 +182,7 @@ public class Condition implements Parcelable {
         description = in.readString();
         symptomList = new ArrayList<Symptom>();
         in.readList(symptomList, Symptom.class.getClassLoader());
-        specializationOb = in.readParcelable(Specialization.class.getClassLoader());
+        specializationObject = in.readParcelable(Specialization.class.getClassLoader());
     }
 
     public static final Creator<Condition> CREATOR = new Creator<Condition>() {

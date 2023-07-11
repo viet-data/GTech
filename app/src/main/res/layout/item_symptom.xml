@@ -18,7 +18,6 @@
             style="@style/regularBlack14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/check_symptom"
             android:text="Symptom" />
 
         <TextView
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_category"
-            android:layout_toRightOf="@id/check_symptom"
             android:layout_marginTop="@dimen/_4sdp"
             android:text="Fatigue" />
 

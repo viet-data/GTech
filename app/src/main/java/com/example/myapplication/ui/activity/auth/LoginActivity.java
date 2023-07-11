@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnFailureListener((task) -> {
                             dialog.dismiss();
                             Toast.makeText(LoginActivity.this,
-                                    "Incorrect credential. Please try again.", Toast.LENGTH_SHORT).show();
+                                    "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
                         });
             }
         });

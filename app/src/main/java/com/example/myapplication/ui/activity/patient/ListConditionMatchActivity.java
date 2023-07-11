@@ -11,16 +11,13 @@ import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.myapplication.Interface.ClickConditionInterface;
+import com.example.myapplication.utils.ClickConditionInterface;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
-import com.example.myapplication.adapter.ConditionMatchAdapter;
 import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.model.Condition;
-import com.example.myapplication.model.Symptom;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListConditionMatchActivity extends AppCompatActivity implements ClickConditionInterface{
     ArrayList<Condition> conditions;
@@ -77,7 +74,7 @@ public class ListConditionMatchActivity extends AppCompatActivity implements Cli
         Condition condition = conditions.get(position);
         Intent intent = new Intent(this, ConditionDetailsActivity.class);
         intent.putExtra("conditionId", condition.getConditionId());
-        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("specialization", condition.getSpecializationObject());
         intent.putExtra("condition",condition);
         startActivity(intent);
     }

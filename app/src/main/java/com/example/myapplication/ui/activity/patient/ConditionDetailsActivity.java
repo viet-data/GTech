@@ -10,17 +10,12 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.SymptomListAdapter;
 import com.example.myapplication.adapter.otherSymptomListAdapter;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Specialization;
 import com.example.myapplication.model.Symptom;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConditionDetailsActivity extends AppCompatActivity {
@@ -50,9 +45,9 @@ public class ConditionDetailsActivity extends AppCompatActivity {
 
         tvName.setText(condition.getName());
         tvDes.setText(condition.getDescription());
-        tvSpec.setText(condition.getSpecializationOb().getName());
+        tvSpec.setText(condition.getSpecializationObject().getName());
 
-        recyclerViewSymptoms = findViewById(R.id.symtoms_list);
+        recyclerViewSymptoms = findViewById(R.id.symptoms_list);
         toolbar = findViewById(R.id.back_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

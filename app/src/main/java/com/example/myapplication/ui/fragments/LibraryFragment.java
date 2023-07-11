@@ -12,8 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Interface.ClickConditionInterface;
-import com.example.myapplication.R;
+import com.example.myapplication.utils.ClickConditionInterface;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.model.Condition;
@@ -59,10 +58,11 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
-                        condition.setConditionId(id);
-                        conditionList.add(condition);
-                        adapter.notifyDataSetChanged();
+                        Condition condition = doc.toObject(Condition.class);
+                        condition.changeToObject(id).addOnSuccessListener(cond -> {
+                            conditionList.add(condition);
+                            adapter.notifyDataSetChanged();
+                        });
                     }
                 }
             }
@@ -80,7 +80,7 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
         Condition condition = conditionList.get(position);
         Intent intent = new Intent(getContext(), ConditionDetailsActivity.class);
         intent.putExtra("conditionId", condition.getConditionId());
-        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("specialization", condition.getSpecializationObject());
         intent.putExtra("condition",condition);
         startActivity(intent);
     }

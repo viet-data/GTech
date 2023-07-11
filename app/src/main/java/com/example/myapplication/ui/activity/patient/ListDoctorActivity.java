@@ -10,13 +10,10 @@ import android.os.Bundle;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.DoctorListAdapter;
-import com.example.myapplication.adapter.UserListAdapter;
-import com.example.myapplication.databinding.ActivityListConditionMatchBinding;
 import com.example.myapplication.databinding.ActivityListDoctorBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Doctor;
 import com.example.myapplication.model.Specialization;
-import com.example.myapplication.ui.fragments.ManageUsersFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
@@ -51,7 +48,7 @@ public class ListDoctorActivity extends AppCompatActivity {
         condition = conditions.get(0);
 
 
-        specialization = condition.getSpecializationOb();
+        specialization = condition.getSpecializationObject();
 
 
         System.out.println(specialization.getSpecializationId());
@@ -78,7 +75,7 @@ public class ListDoctorActivity extends AppCompatActivity {
                         doctor.changeToObject(id).addOnCompleteListener(new OnCompleteListener<Doctor>() {
                             @Override
                             public void onComplete(@NonNull Task<Doctor> task) {
-                                String idToMatch = condition.getSpecializationOb().getSpecializationId();
+                                String idToMatch = condition.getSpecializationObject().getSpecializationId();
 //                                System.out.println(idToMatch);
                                 System.out.println(doctor.getSpecializationList());
                                 for (Specialization spec : doctor.getSpecializationList()) {

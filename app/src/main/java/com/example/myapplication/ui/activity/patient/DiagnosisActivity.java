@@ -16,6 +16,7 @@ import com.example.myapplication.adapter.SymptomListAdapter;
 import com.example.myapplication.databinding.ActivityDiagnosisBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Symptom;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -128,8 +129,10 @@ public class DiagnosisActivity extends AppCompatActivity {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
-                        conditionList.add(condition);
+                        Condition condition = doc.toObject(Condition.class);
+                        condition.changeToObject(id).addOnSuccessListener(condition1 -> {
+                            conditionList.add(condition);
+                        });
                     }
                 }
 

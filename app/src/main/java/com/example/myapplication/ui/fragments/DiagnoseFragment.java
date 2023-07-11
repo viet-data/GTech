@@ -24,7 +24,7 @@ public class DiagnoseFragment extends Fragment {
 
         binding = FragmentDiagnoseBinding.inflate(inflater, container, false);
 
-        binding.btnSettings.setOnClickListener((v) -> {
+        binding.btnLogout.setOnClickListener((v) -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);

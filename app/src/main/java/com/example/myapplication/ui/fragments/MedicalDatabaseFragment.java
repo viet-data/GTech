@@ -13,10 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.Interface.ClickConditionInterface;
-import com.example.myapplication.R;
+import com.example.myapplication.utils.ClickConditionInterface;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
-import com.example.myapplication.databinding.FragmentLibraryBinding;
 import com.example.myapplication.databinding.FragmentMedicalDatabaseBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.ui.activity.admin.AddConditionActivity;
@@ -68,10 +66,11 @@ public class MedicalDatabaseFragment extends Fragment implements ClickConditionI
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         QueryDocumentSnapshot doc = documentChange.getDocument();
                         String id = doc.getId();
-                        Condition condition = doc.toObject(Condition.class).changeToObject(id);
-                        condition.setConditionId(id);
-                        conditionList.add(condition);
-                        adapter.notifyDataSetChanged();
+                        Condition condition = doc.toObject(Condition.class);
+                        condition.changeToObject(id).addOnSuccessListener(cond -> {
+                            conditionList.add(condition);
+                            adapter.notifyDataSetChanged();
+                        });
                     }
                 }
             }
@@ -89,7 +88,7 @@ public class MedicalDatabaseFragment extends Fragment implements ClickConditionI
         Condition condition = conditionList.get(position);
         Intent intent = new Intent(getContext(), ConditionDetailsActivity.class);
         intent.putExtra("conditionId", condition.getConditionId());
-        intent.putExtra("specialization", condition.getSpecializationOb());
+        intent.putExtra("specialization", condition.getSpecializationObject());
         intent.putExtra("condition",condition);
         startActivity(intent);
 
