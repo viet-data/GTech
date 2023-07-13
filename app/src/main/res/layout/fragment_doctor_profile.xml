@@ -37,21 +37,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_30sdp"
-        android:text="Doctor App"
+        android:text="Doctor Profile"
         android:textSize="@dimen/_30ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_logout"
         android:layout_marginTop="@dimen/_20sdp"/>
 
-    <TextView
-        android:id="@+id/txt_desc"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Start your healthcare journey with us now."
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="@+id/txt_title"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp">
+        <include
+            android:id="@+id/doctor_layout"
+            layout="@layout/item_doctor_info"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_specs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

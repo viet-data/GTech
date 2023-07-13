@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -39,6 +40,14 @@ public class AddConditionActivity extends AppCompatActivity {
     }
 
     private void initButtonsListeners() {
+
+        binding.myToolbar.myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         // handle the Open Alert Dialog button
         binding.btnSetSpecialization.setOnClickListener(v -> {
             // initialise the list items for the alert dialog

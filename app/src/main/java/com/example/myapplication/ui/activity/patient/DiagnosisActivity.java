@@ -12,11 +12,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.SymptomListAdapter;
+import com.example.myapplication.adapter.SymptomListCheckboxAdapter;
 import com.example.myapplication.databinding.ActivityDiagnosisBinding;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Symptom;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,7 +36,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     List<Symptom> symptomList;
     RecyclerView recyclerViewSymptoms;
     FirebaseFirestore firestore;
-    SymptomListAdapter adapter;
+    SymptomListCheckboxAdapter adapter;
     ArrayList<Condition> conditionList = new ArrayList<>();
 
     @Override
@@ -61,7 +60,7 @@ public class DiagnosisActivity extends AppCompatActivity {
         recyclerViewSymptoms.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firestore = FirebaseFirestore.getInstance();
         symptomList = new ArrayList<>();
-        adapter = new SymptomListAdapter(DiagnosisActivity.this, symptomList);
+        adapter = new SymptomListCheckboxAdapter(DiagnosisActivity.this, symptomList);
         recyclerViewSymptoms.setAdapter(adapter);
         showData();
         showConditions();
