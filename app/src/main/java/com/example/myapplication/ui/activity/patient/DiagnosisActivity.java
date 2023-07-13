@@ -37,7 +37,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     RecyclerView recyclerViewSymptoms;
     FirebaseFirestore firestore;
     SymptomListCheckboxAdapter adapter;
-    ArrayList<Condition> conditionList = new ArrayList<>();
+    List<Condition> conditionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
