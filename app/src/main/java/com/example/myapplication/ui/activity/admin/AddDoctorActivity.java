@@ -32,13 +32,13 @@ import java.util.List;
 import java.util.Map;
 
 public class AddDoctorActivity extends AppCompatActivity {
+    private List<Specialization> selectedItems;
     private User user;
     private ActivityAddDoctorBinding binding;
     private String strName;
     private String strPhone;
     private String strDesc;
     private FirebaseFirestore firestore;
-    private Toolbar toolbar;
     private List<Specialization> specializationList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +73,12 @@ public class AddDoctorActivity extends AppCompatActivity {
             doctorInfo.put("description", strDesc);
             doctorInfo.put("phone", strPhone);
 
-            // TODO: un-hardcode
-            List<DocumentReference> refs = new ArrayList<>();
-            DocumentReference dRef = firestore.collection("Specializations").document(specializationList.get(0).getSpecializationId());
-            refs.add(dRef);
 
+            List<DocumentReference> refs = new ArrayList<>();
+            for (Specialization spec : selectedItems) {
+                DocumentReference dRef = firestore.collection("Specializations").document(spec.getSpecializationId());
+                refs.add(dRef);
+            }
             doctorInfo.put("specialization", refs);
             firestore.collection("Doctors").document(user.getUserId()).set(doctorInfo);
             firestore.collection("Users").document(user.getUserId()).update("user_level", "DOCTOR");
@@ -94,10 +95,7 @@ public class AddDoctorActivity extends AppCompatActivity {
                 specItems.add(spec.getName());
             }
             final String[] listItems = specItems.toArray(new String[0]);
-            boolean[] checkedItems = new boolean[listItems.length];
-            final List<String> selectedItems = Arrays.asList(listItems);
-
-            // initially set the null for the text preview
+            final boolean[] checkedItems = new boolean[listItems.length];
 
             // initialise the alert dialog builder
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -108,7 +106,6 @@ public class AddDoctorActivity extends AppCompatActivity {
             // now this is the function which sets the alert dialog for multiple item selection ready
             builder.setMultiChoiceItems(listItems, checkedItems, (dialog, which, isChecked) -> {
                 checkedItems[which] = isChecked;
-                String currentItem = selectedItems.get(which);
             });
 
             // alert dialog shouldn't be cancellable
@@ -117,7 +114,10 @@ public class AddDoctorActivity extends AppCompatActivity {
             // handle the negative button of the alert dialog
             builder.setNegativeButton("Cancel", (dialog, which) -> {});
             builder.setPositiveButton("Add", (dialog, which) -> {
-
+                selectedItems = new ArrayList<>();
+                for (int i = 0; i < checkedItems.length; i++) {
+                    if (checkedItems[i]) selectedItems.add(specializationList.get(i));
+                }
             });
             // create the builder
             builder.create();
@@ -127,23 +127,27 @@ public class AddDoctorActivity extends AppCompatActivity {
             alertDialog.show();
         });
 
-        EditText editText = new EditText(this);
-        EditText editText2 = new EditText(this);
         binding.btnNewSpecialization.setOnClickListener(v -> {
             LinearLayout layout = new LinearLayout(this);
             layout.setOrientation(LinearLayout.VERTICAL);
-            editText.setHint("Name");
-            layout.addView(editText);
-            editText2.setHint("Description");
-            layout.addView(editText2);
+            EditText edtName = new EditText(this);
+            EditText edtDesc = new EditText(this);
+            edtName.setHint("Name");
+            layout.addView(edtName);
+            edtDesc.setHint("Description");
+            layout.addView(edtDesc);
 
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("Create new specialization")
                     .setMessage("Enter specialization name and description")
                     .setView(layout)
                     .setPositiveButton("Add", (dialogInterface, i) -> {
-                        String editTextInput = editText.getText().toString();
-                        String editTextInput2 = editText2.getText().toString();
+                        String name = edtName.getText().toString();
+                        String desc = edtDesc.getText().toString();
+                        Map<String, Object> spec = new HashMap<>();
+                        spec.put("name", name);
+                        spec.put("description", desc);
+                        firestore.collection("Specializations").add(spec);
                     })
                     .setNegativeButton("Cancel", null)
                     .create();

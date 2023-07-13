@@ -23,7 +23,6 @@ public class ConditionDetailsActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
 
     private Condition condition;
-    private Specialization specialization;
     private RecyclerView recyclerViewSymptoms;
     private Toolbar toolbar;
     private List<Symptom> symptomList;
@@ -47,6 +46,7 @@ public class ConditionDetailsActivity extends AppCompatActivity {
         tvDes.setText(condition.getDescription());
         tvSpec.setText(condition.getSpecializationObject().getName());
 
+        System.out.println(condition.getSymptomList().toArray());
         recyclerViewSymptoms = findViewById(R.id.symptoms_list);
         toolbar = findViewById(R.id.back_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -19,15 +19,17 @@ import java.util.List;
 public class Condition implements Parcelable {
     @Exclude
     protected String conditionId;
-
     private String name;
     private String description;
     private Specialization specializationObject;
     private List<Symptom> symptomList;
     private DocumentReference specialization;
-    private List<DocumentReference> symptoms;
+    private List<DocumentReference> symptom;
 
-    public Condition() {}
+    public Condition() {
+        symptomList = new ArrayList<>();
+        symptom = new ArrayList<>();
+    }
     public Condition(String conditionId, String name, String description ){
         this.conditionId = conditionId;
         this.name = name;
@@ -44,7 +46,7 @@ public class Condition implements Parcelable {
         Task<DocumentSnapshot> specTask = specialization.get();
         tasks.add(specTask);
 
-        for (DocumentReference dR : this.symptoms){
+        for (DocumentReference dR : symptom){
             Task<DocumentSnapshot> task = dR.get();
             tasks.add(task);
         }
@@ -106,8 +108,8 @@ public class Condition implements Parcelable {
         this.specializationObject = specializationObj;
     }
 
-    public List<DocumentReference> getSymptoms(){
-        return symptoms;
+    public List<DocumentReference> getSymptom(){
+        return symptom;
     }
     public List<Symptom> getSymptomList(){
         return symptomList;
@@ -151,8 +153,8 @@ public class Condition implements Parcelable {
         this.specialization = specialization;
     }
 
-    public void setSymptoms(List<DocumentReference> symptoms) {
-        this.symptoms = symptoms;
+    public void setSymptom(List<DocumentReference> symptoms) {
+        this.symptom = symptoms;
     }
 
     public String getName() {
@@ -180,7 +182,8 @@ public class Condition implements Parcelable {
         conditionId = in.readString();
         name = in.readString();
         description = in.readString();
-        symptomList = new ArrayList<Symptom>();
+        symptomList = new ArrayList<>();
+        symptom = new ArrayList<>();
         in.readList(symptomList, Symptom.class.getClassLoader());
         specializationObject = in.readParcelable(Specialization.class.getClassLoader());
     }
