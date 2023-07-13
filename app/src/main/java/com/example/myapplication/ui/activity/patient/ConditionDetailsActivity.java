@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.otherSymptomListAdapter;
+import com.example.myapplication.adapter.SymptomListAdapter;
 import com.example.myapplication.model.Condition;
 import com.example.myapplication.model.Specialization;
 import com.example.myapplication.model.Symptom;
@@ -27,7 +27,7 @@ public class ConditionDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewSymptoms;
     private Toolbar toolbar;
     private List<Symptom> symptomList;
-    private otherSymptomListAdapter symptomListAdapter;
+    private SymptomListAdapter symptomListAdapter;
 
 
     @Override
@@ -58,7 +58,7 @@ public class ConditionDetailsActivity extends AppCompatActivity {
 
         recyclerViewSymptoms.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         symptomList = condition.getSymptomList();
-        symptomListAdapter = new otherSymptomListAdapter(ConditionDetailsActivity.this, symptomList);
+        symptomListAdapter = new SymptomListAdapter(ConditionDetailsActivity.this, symptomList);
         recyclerViewSymptoms.setAdapter(symptomListAdapter);
     }
 }
