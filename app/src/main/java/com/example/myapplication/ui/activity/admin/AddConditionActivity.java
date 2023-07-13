@@ -110,6 +110,7 @@ public class AddConditionActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
+
     }
     private void addSpecializationData() {
 

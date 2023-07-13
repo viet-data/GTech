@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_80sdp"
         android:text="List doctors"
-        android:textSize="@dimen/_20ssp"
+        android:textSize="@dimen/_26ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_users"
