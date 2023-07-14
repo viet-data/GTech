@@ -2,12 +2,16 @@ package com.example.myapplication.ui.activity.patient;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,17 +42,18 @@ public class DiagnosisActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     SymptomListCheckboxAdapter adapter;
     List<Condition> conditionList = new ArrayList<>();
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDiagnosisBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        toolbar = findViewById(R.id.my_toolbar);
 
         recyclerViewSymptoms = findViewById(R.id.recycler_view_symptoms);
 
-        toolbar = findViewById(R.id.my_toolbar);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +61,7 @@ public class DiagnosisActivity extends AppCompatActivity {
             }
         });
 
-
+        Search(toolbar);
         recyclerViewSymptoms.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         firestore = FirebaseFirestore.getInstance();
         symptomList = new ArrayList<>();
@@ -81,6 +86,32 @@ public class DiagnosisActivity extends AppCompatActivity {
             }
         });
     }
+
+    void Search(Toolbar toolbar){
+        Menu menu = toolbar.getMenu();
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+    }
+
+
     private ArrayList<Condition> findCondition(List<Symptom> selectedSymptomList, List<Condition> conditionList){
         List<Map.Entry<Integer, Condition>> dataDict = new ArrayList<>();
         ArrayList<Condition> results = new ArrayList<>();
@@ -154,5 +185,14 @@ public class DiagnosisActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!searchView.isIconified()){
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }
