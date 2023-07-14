@@ -16,10 +16,13 @@ import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.adapter.SpecializationListAdapter;
 import com.example.myapplication.databinding.FragmentDoctorProfileBinding;
 import com.example.myapplication.model.Condition;
+import com.example.myapplication.model.Doctor;
 import com.example.myapplication.model.Specialization;
 import com.example.myapplication.ui.activity.auth.LoginActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -54,7 +57,24 @@ public class DoctorProfileFragment extends Fragment {
         specializationList = new ArrayList<>();
         adapter = new SpecializationListAdapter(this.getContext(), specializationList);
         recyclerView.setAdapter(adapter);
-        showData();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        firestore.collection("Doctors").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Doctor doctor = documentSnapshot.toObject(Doctor.class);
+                doctor.changeToObject(documentSnapshot.getId()).addOnSuccessListener(new OnSuccessListener<Doctor>() {
+                    @Override
+                    public void onSuccess(Doctor doc) {
+                        binding.tvName.setText(doctor.getName());
+                        binding.tvPhone.setText(doctor.getPhone());
+                        for (Specialization specialization : doctor.getSpecializationList()) {
+                            specializationList.add(specialization);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        });
         return root;
     }
     private void showData() {

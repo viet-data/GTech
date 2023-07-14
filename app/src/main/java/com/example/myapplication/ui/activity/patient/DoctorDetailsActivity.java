@@ -26,7 +26,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.doctor_layout).findViewById(R.id.tv_name);
         tvName.setText(doctor.getName());
 
-        TextView tvPhone = findViewById(R.id.doctor_layout).findViewById(R.id.tv_specialization);
+        TextView tvPhone = findViewById(R.id.doctor_layout).findViewById(R.id.tv_phone);
         tvPhone.setText(doctor.getPhone());
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_specs);

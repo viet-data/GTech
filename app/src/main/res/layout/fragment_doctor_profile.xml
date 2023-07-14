@@ -44,22 +44,54 @@
         app:layout_constraintTop_toBottomOf="@id/btn_logout"
         android:layout_marginTop="@dimen/_20sdp"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/txt_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_10sdp">
-        <include
-            android:id="@+id/doctor_layout"
-            layout="@layout/item_doctor_info"/>
-    </LinearLayout>
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/txt_title">
+
+        <TextView
+            android:id="@+id/txt_name"
+            style="@style/regularBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doctor" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/boldBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_name"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="John Doe" />
+
+        <TextView
+            android:id="@+id/txt_phone"
+            style="@style/regularBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="Phone" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/boldBlack14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_phone"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="0123456789" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_specs"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
