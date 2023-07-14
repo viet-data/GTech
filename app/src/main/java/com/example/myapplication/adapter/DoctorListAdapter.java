@@ -1,6 +1,8 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.model.Doctor;
 import com.example.myapplication.model.Symptom;
+import com.example.myapplication.ui.activity.admin.DoctorProfileActivity;
+import com.example.myapplication.ui.activity.admin.UserProfileActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -63,6 +67,17 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
         public DoctorListViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_name);
+        }
+
+        public void onClick(View v) {
+            Context context = v.getContext();
+            Intent intent;
+
+            intent = new Intent(context, DoctorProfileActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user", user);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
         }
     }
 }

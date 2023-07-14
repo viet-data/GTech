@@ -3,10 +3,12 @@ package com.example.myapplication.ui.activity.patient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.DoctorListAdapter;
@@ -36,6 +38,7 @@ public class ListDoctorActivity extends AppCompatActivity {
 
     DoctorListAdapter doctorListAdapter ;
     private ActivityListDoctorBinding binding;
+    private Toolbar toolbar;
 
     private RecyclerView recyclerView;
     @Override
@@ -47,14 +50,23 @@ public class ListDoctorActivity extends AppCompatActivity {
         conditions = bundle.getParcelableArrayList("condition_list");
         condition = conditions.get(0);
 
+        binding = ActivityListDoctorBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        toolbar = binding.backToolbar.myToolbar;
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         specialization = condition.getSpecializationObject();
 
 
-        System.out.println(specialization.getSpecializationId());
+        //System.out.println(specialization.getSpecializationId());
 
-        binding = ActivityListDoctorBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
         recyclerView = binding.recyclerViewUsers;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
