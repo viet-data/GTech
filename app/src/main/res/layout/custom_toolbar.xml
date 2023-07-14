@@ -11,3 +11,4 @@
     app:contentInsetStartWithNavigation="0dp"
     style="@style/MyToolbarTitle">
 </androidx.appcompat.widget.Toolbar>
+

@@ -1,5 +1,10 @@
 package com.example.myapplication.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -11,7 +16,7 @@ import com.google.firebase.firestore.PropertyName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Doctor {
+public class Doctor implements Parcelable {
     private String doctorId;
     private String name;
     private String description;
@@ -102,4 +107,39 @@ public class Doctor {
             return this;
         });
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(phone);
+        dest.writeList(specializationList);
+    }
+
+    public Doctor(Parcel in) {
+
+        name = in.readString();
+        description = in.readString();
+        phone = in.readString();
+        List<Specialization> specializationList = new ArrayList<>();
+        in.readList(specializationList, Specialization.class.getClassLoader());
+
+    }
+
+    public static final Creator<Doctor> CREATOR = new Creator<Doctor>() {
+        @Override
+        public Doctor createFromParcel(Parcel source) {
+            return new Doctor(source);
+        }
+
+        @Override
+        public Doctor[] newArray(int size) {
+            return new Doctor[size];
+        }
+    };
 }

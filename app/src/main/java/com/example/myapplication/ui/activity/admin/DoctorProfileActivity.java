@@ -14,6 +14,7 @@ import com.example.myapplication.databinding.ActivityAdminBinding;
 import com.example.myapplication.databinding.ActivityDoctorBinding;
 import com.example.myapplication.databinding.ActivityDoctorProfileBinding;
 import com.example.myapplication.model.Specialization;
+import com.example.myapplication.model.User;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +37,10 @@ public class DoctorProfileActivity extends AppCompatActivity {
         binding = ActivityDoctorProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Bundle bundle = getIntent().getExtras();
+        User user = bundle.getParcelable("user");
+
+//        firestore.collection("Doctors").document(user.getUserId()).addSnapshotListener(new);
         binding.backToolbar.myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +53,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         specializationList = new ArrayList<>();
         adapter = new SpecializationListAdapter(this, specializationList);
         recyclerView.setAdapter(adapter);
-        showData();
+//        showData();
     }
     private void showData() {
         firestore.collection("Specializations").addSnapshotListener(new EventListener<QuerySnapshot>() {

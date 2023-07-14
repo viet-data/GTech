@@ -3,10 +3,12 @@ package com.example.myapplication.ui.activity.patient;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.DoctorListAdapter;
@@ -38,11 +40,21 @@ public class ListDoctorActivity extends AppCompatActivity {
     private ActivityListDoctorBinding binding;
 
     private RecyclerView recyclerView;
+    private Toolbar toolbar;
+    private ActivityListDoctorBinding activityListDoctorBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_doctor);
+        activityListDoctorBinding = ActivityListDoctorBinding.inflate(getLayoutInflater());
+        setContentView(activityListDoctorBinding.getRoot());
+        toolbar = activityListDoctorBinding.back.myToolbar;
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Bundle bundle = getIntent().getExtras();
         conditions = bundle.getParcelableArrayList("condition_list");
         condition = conditions.get(0);
