@@ -45,16 +45,13 @@ public class ListDoctorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityListDoctorBinding = ActivityListDoctorBinding.inflate(getLayoutInflater());
-        setContentView(activityListDoctorBinding.getRoot());
-        toolbar = activityListDoctorBinding.back.myToolbar;
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
+        binding = ActivityListDoctorBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+
         Bundle bundle = getIntent().getExtras();
         conditions = bundle.getParcelableArrayList("condition_list");
         condition = conditions.get(0);
@@ -65,8 +62,14 @@ public class ListDoctorActivity extends AppCompatActivity {
 
         System.out.println(specialization.getSpecializationId());
 
-        binding = ActivityListDoctorBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        toolbar = binding.back.myToolbar;
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         recyclerView = binding.recyclerViewUsers;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
