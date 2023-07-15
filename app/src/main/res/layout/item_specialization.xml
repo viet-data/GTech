@@ -26,5 +26,12 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:text="Spec" />
 
+<!--        <ImageView-->
+<!--            android:layout_width="@dimen/_30sdp"-->
+<!--            android:layout_height="@dimen/_30sdp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:src="@drawable/baseline_chevron_right_24" />-->
+
     </RelativeLayout>
 </com.google.android.material.carousel.MaskableFrameLayout>

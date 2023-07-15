@@ -24,15 +24,17 @@
         android:id="@+id/layout_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_logo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_email"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_50sdp"
             android:hint="Email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,8 +52,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_password"
-            android:layout_width="@dimen/_270sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_50sdp"
             android:hint="Password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>

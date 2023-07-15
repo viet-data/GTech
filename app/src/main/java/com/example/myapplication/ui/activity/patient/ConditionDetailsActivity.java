@@ -1,11 +1,15 @@
 package com.example.myapplication.ui.activity.patient;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -46,6 +50,17 @@ public class ConditionDetailsActivity extends AppCompatActivity {
         tvDes.setText(condition.getDescription());
         tvSpec.setText(condition.getSpecializationObject().getName());
 
+        RelativeLayout cardView = findViewById(R.id.card_view);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Specialization specialization = condition.getSpecializationObject();
+                Intent intent = new Intent(ConditionDetailsActivity.this, SpecializationDetailsActivity.class);
+                intent.putExtra("specialization", specialization);
+                startActivity(intent);
+            }
+        });
+        symptomList = condition.getSymptomList();
         System.out.println(condition.getSymptomList().toArray());
         recyclerViewSymptoms = findViewById(R.id.symptoms_list);
         toolbar = findViewById(R.id.back_toolbar);

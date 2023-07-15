@@ -43,7 +43,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_name"
-                android:layout_width="@dimen/_270sdp"
+                android:layout_width="@dimen/_250sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:hint="Name"
                 android:inputType="text"
@@ -61,7 +61,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_phone"
-                android:layout_width="@dimen/_270sdp"
+                android:layout_width="@dimen/_250sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:hint="Phone"
                 android:inputType="text"
@@ -79,7 +79,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_description"
-                android:layout_width="@dimen/_270sdp"
+                android:layout_width="@dimen/_250sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:hint="Description"
                 android:inputType="text"
@@ -92,7 +92,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_set_specialization"
             style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="@dimen/_130sdp"
+            android:layout_width="@dimen/_125sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Set specializations"
@@ -103,7 +103,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_new_specialization"
             style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="@dimen/_130sdp"
+            android:layout_width="@dimen/_125sdp"
             android:layout_height="@dimen/_50sdp"
             android:text="Add specialization"
             android:layout_marginLeft="@dimen/_10sdp"

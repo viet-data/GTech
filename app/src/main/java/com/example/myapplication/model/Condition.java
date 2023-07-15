@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,11 +23,11 @@ public class Condition implements Parcelable {
     private Specialization specializationObject;
     private List<Symptom> symptomList;
     private DocumentReference specialization;
-    private List<DocumentReference> symptom;
+    private List<DocumentReference> symptoms;
 
     public Condition() {
         symptomList = new ArrayList<>();
-        symptom = new ArrayList<>();
+        symptoms = new ArrayList<>();
     }
     public Condition(String conditionId, String name, String description ){
         this.conditionId = conditionId;
@@ -36,9 +35,18 @@ public class Condition implements Parcelable {
         this.description = description;
 
     }
+    public Condition(String conditionId, String name, String description, ArrayList<DocumentReference> symptoms){
+        this.conditionId = conditionId;
+        this.name = name;
+        this.description = description;
+        this.symptoms = symptoms;
+
+    }
 
     public Task<Condition> changeToObject(String id) {
         symptomList = new ArrayList<>();
+        System.out.println("list_____________________");
+        System.out.println(symptoms);
         this.conditionId = id;
 
         List<Task<DocumentSnapshot>> tasks = new ArrayList<>();
@@ -46,7 +54,7 @@ public class Condition implements Parcelable {
         Task<DocumentSnapshot> specTask = specialization.get();
         tasks.add(specTask);
 
-        for (DocumentReference dR : symptom){
+        for (DocumentReference dR : symptoms){
             Task<DocumentSnapshot> task = dR.get();
             tasks.add(task);
         }
@@ -108,8 +116,8 @@ public class Condition implements Parcelable {
         this.specializationObject = specializationObj;
     }
 
-    public List<DocumentReference> getSymptom(){
-        return symptom;
+    public List<DocumentReference> getSymptoms(){
+        return symptoms;
     }
     public List<Symptom> getSymptomList(){
         return symptomList;
@@ -153,8 +161,8 @@ public class Condition implements Parcelable {
         this.specialization = specialization;
     }
 
-    public void setSymptom(List<DocumentReference> symptoms) {
-        this.symptom = symptoms;
+    public void setSymptoms(List<DocumentReference> symptoms) {
+        this.symptoms = symptoms;
     }
 
     public String getName() {
@@ -183,7 +191,7 @@ public class Condition implements Parcelable {
         name = in.readString();
         description = in.readString();
         symptomList = new ArrayList<>();
-        symptom = new ArrayList<>();
+        symptoms = new ArrayList<>();
         in.readList(symptomList, Symptom.class.getClassLoader());
         specializationObject = in.readParcelable(Specialization.class.getClassLoader());
     }
