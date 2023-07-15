@@ -61,6 +61,8 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
                         Condition condition = doc.toObject(Condition.class);
                         condition.changeToObject(id).addOnSuccessListener(cond -> {
                             conditionList.add(condition);
+                            System.out.println("________________________________");
+                            System.out.println(condition.getSymptomList());
                             adapter.notifyDataSetChanged();
                         });
                     }
