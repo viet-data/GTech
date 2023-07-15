@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,8 +23,7 @@ public class Condition implements Parcelable {
     private Specialization specializationObject;
     private List<Symptom> symptomList;
     private DocumentReference specialization;
-
-    private List<DocumentReference> symptoms ;
+    private List<DocumentReference> symptoms;
 
     public Condition() {
         symptomList = new ArrayList<>();
@@ -118,7 +116,7 @@ public class Condition implements Parcelable {
         this.specializationObject = specializationObj;
     }
 
-    public List<DocumentReference> getSymptom(){
+    public List<DocumentReference> getSymptoms(){
         return symptoms;
     }
     public List<Symptom> getSymptomList(){
@@ -163,7 +161,7 @@ public class Condition implements Parcelable {
         this.specialization = specialization;
     }
 
-    public void setSymptom(List<DocumentReference> symptoms) {
+    public void setSymptoms(List<DocumentReference> symptoms) {
         this.symptoms = symptoms;
     }
 

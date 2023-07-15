@@ -61,7 +61,7 @@ public class AddConditionActivity extends AppCompatActivity {
             for (Symptom symp : selectedSymptoms) {
                 refs.add(firestore.collection("Symptoms").document(symp.getSymptomId()));
             }
-            condition.put("symptom", refs);
+            condition.put("symptoms", refs);
             firestore.collection("Conditions").add(condition);
             finish();
         });

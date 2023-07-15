@@ -36,9 +36,6 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
 
 
     }
-
-
-
     @NonNull
     @Override
     public DoctorListAdapter.DoctorListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
