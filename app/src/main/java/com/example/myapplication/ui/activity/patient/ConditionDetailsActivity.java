@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -49,7 +50,7 @@ public class ConditionDetailsActivity extends AppCompatActivity {
         tvDes.setText(condition.getDescription());
         tvSpec.setText(condition.getSpecializationObject().getName());
 
-        CardView cardView = findViewById(R.id.card_view);
+        RelativeLayout cardView = findViewById(R.id.card_view);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
