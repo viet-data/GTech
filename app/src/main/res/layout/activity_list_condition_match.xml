@@ -14,14 +14,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="13dp"
+        android:text="The conditions below maybe the ones you have"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/condition_match"
         android:layout_width="0dp"
         android:layout_height="197dp"
+        android:layout_marginTop="40dp"
         android:background="#FFFEFE"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/txt_title">
 
     </androidx.recyclerview.widget.RecyclerView>
 
