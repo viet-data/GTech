@@ -1,17 +1,26 @@
 package com.example.myapplication.ui.fragments;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.utils.ClickConditionInterface;
 import com.example.myapplication.adapter.ConditionLibraryAdapter;
 import com.example.myapplication.databinding.FragmentLibraryBinding;
@@ -34,11 +43,30 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
     private FirebaseFirestore firestore;
     private ConditionLibraryAdapter adapter;
     private List<Condition> conditionList;
+    private SearchView searchView;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        searchView = (SearchView) binding.searchView;
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         recyclerViewConcepts = binding.recyclerViewConditions;
         recyclerViewConcepts.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,7 +104,6 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
         super.onDestroyView();
         binding = null;
     }
-
     @Override
     public void onItemClick(int position) {
         Condition condition = conditionList.get(position);
@@ -86,4 +113,5 @@ public class LibraryFragment extends Fragment implements ClickConditionInterface
         intent.putExtra("condition",condition);
         startActivity(intent);
     }
+
 }
