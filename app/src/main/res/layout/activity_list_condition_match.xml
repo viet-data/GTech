@@ -16,11 +16,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/condition_match"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="197dp"
         android:background="#FFFEFE"
-        app:layout_constraintTop_toBottomOf="@+id/back_toolbar"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_toolbar">
 
     </androidx.recyclerview.widget.RecyclerView>
 
