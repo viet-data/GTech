@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AddConditionActivity extends AppCompatActivity {
     private ActivityAddConditionBinding binding;
@@ -73,7 +74,7 @@ public class AddConditionActivity extends AppCompatActivity {
                 specItems.add(spec.getName());
             }
             final String[] listItems = specItems.toArray(new String[0]);
-            int checkedItem = 0;
+            AtomicInteger checkedItem = new AtomicInteger();
             final List<String> selectedItems = Arrays.asList(listItems);
 
             // initially set the null for the text preview
@@ -85,8 +86,8 @@ public class AddConditionActivity extends AppCompatActivity {
             builder.setTitle("Choose from existing specialization");
 
             // now this is the function which sets the alert dialog for multiple item selection ready
-            builder.setSingleChoiceItems(listItems, checkedItem, (dialog, which) -> {
-                String currentItem = selectedItems.get(which);
+            builder.setSingleChoiceItems(listItems, -1, (dialog, which) -> {
+                checkedItem.set(which);
             });
             // alert dialog shouldn't be cancellable
             builder.setCancelable(false);
@@ -94,7 +95,7 @@ public class AddConditionActivity extends AppCompatActivity {
             // handle the negative button of the alert dialog
             builder.setNegativeButton("Cancel", (dialog, which) -> {});
             builder.setPositiveButton("Set", (dialog, which) -> {
-                selectedSpec = specializationList.get(checkedItem);
+                selectedSpec = specializationList.get(checkedItem.get());
             });
             // create the builder
             builder.create();
